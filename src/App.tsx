@@ -8,7 +8,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<AuthPage />} path="/auth" />
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<Navigate to="/auth" replace />} />
         </Routes>
       </BrowserRouter>
     </div>
