@@ -4,9 +4,12 @@ module.exports = {
     es2021: true,
   },
   extends: [
-    'plugin:react/recommended',
     'airbnb',
-    'prettier'
+    'prettier',
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    'plugin:react/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -17,8 +20,8 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: [
-    'react',
     '@typescript-eslint',
+    'react',
   ],
   rules: {
     'react/jsx-filename-extension': [2, { 'extensions': ['.ts', '.tsx'] }],
@@ -31,7 +34,11 @@ module.exports = {
         "ts": "never",
         "tsx": "never"
       }
-    ]
+    ],
+    'react/function-component-definition': 'off',
+    'import/prefer-default-export': 'off',
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error"
   },
   settings: {
     "import/extensions": [".js", ".jsx", ".ts", ".tsx"],
@@ -39,8 +46,9 @@ module.exports = {
       "@typescript-eslint/parser": [".ts", ".tsx"]
     },
     "import/resolver": {
-      "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      node: {
+        extensions: [".js", ".jsx", ".ts", ".tsx"],
+        paths: ["src"],
       }
     }
   }
