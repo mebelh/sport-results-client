@@ -15,6 +15,7 @@ export const InputWrapper = styled.div`
   border-radius: 4px;
   height: 36px;
   margin-top: 3px;
+  color: ${getColor('text', 'primary')};
 `;
 
 export const Input = styled.input`

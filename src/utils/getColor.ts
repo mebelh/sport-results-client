@@ -1,6 +1,6 @@
 type TScope = 'background' | 'text' | 'lightGray';
 
-type TVariant = 'primary' | 'accent' | 'error';
+type TVariant = 'primary' | 'accent' | 'error' | 'danger';
 
 const colors: {
   [scopeKey in TScope]: {
@@ -8,16 +8,18 @@ const colors: {
   };
 } = {
   background: {
-    accent: 'var(--text-)',
-    primary: 'var(--background-primary-light)',
+    accent: 'var(--background-accent)',
+    primary: 'var(--background-primary)',
+    danger: 'var(--background-danger)',
   },
   text: {
-    primary: 'var(--text-primary-light)',
-    accent: '',
-    error: 'var(--text-error-light)',
+    primary: 'var(--text-primary)',
+    accent: 'var(--text-accent)',
+    error: 'var(--text-error)',
   },
   lightGray: {
-    primary: 'var(--light-gray-light)',
+    primary: 'var(--light-gray)',
+    danger: 'var(--light-gray-danger)',
   },
 };
 

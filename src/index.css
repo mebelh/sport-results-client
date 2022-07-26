@@ -85,10 +85,21 @@
 }
 
 #root {
-  --background-primary-light: white;
-  --background-primary-dark: #8c8c8c;
-  --text-primary-light: black;
-  --text-primary-dark: #c7c7c7;
-  --text-error-light: #ee4040;
-  --light-gray-light: #dedede;
+  --background-primary: white;
+  --background-accent: #2c5485;
+  --background-danger: #ff7777;
+  --text-primary: black;
+  --text-accent: #eeeeee;
+  --text-error: #ee4040;
+  --light-gray: #dedede;
+}
+
+#root.dark {
+  --background-primary: #1c1c1f;
+  --background-accent: #2c5485;
+  --background-danger: #ff7777;
+  --text-primary: #c7c7c7;
+  --text-accent: #eeeeee;
+  --text-error: #ee4040;
+  --light-gray: #dedede;
 }

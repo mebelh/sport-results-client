@@ -1,6 +1,7 @@
 import React from 'react';
 import Input from 'components/input';
 import Typography from 'components/typography';
+import Button from 'components/button';
 import { Wrapper } from './style';
 
 function AuthPage() {
@@ -9,7 +10,7 @@ function AuthPage() {
       <Typography.Text1>Сивиля секс</Typography.Text1>
       <Input title="Логин" icon="@" />
       <Input title="Пароль" type="password" error="Жопа топ" />
-      <button type="submit">Войти</button>
+      <Button type="danger" text="Войти" />
     </Wrapper>
   );
 }

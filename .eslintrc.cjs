@@ -38,7 +38,9 @@ module.exports = {
     'react/function-component-definition': 'off',
     'import/prefer-default-export': 'off',
     "react/jsx-uses-react": "error",
-    "react/jsx-uses-vars": "error"
+    "react/jsx-uses-vars": "error",
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": "error"
   },
   settings: {
     "import/extensions": [".js", ".jsx", ".ts", ".tsx"],
