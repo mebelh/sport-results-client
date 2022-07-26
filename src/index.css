@@ -77,7 +77,6 @@
   width : auto;
   word-spacing : normal;
   z-index : auto;
-  /* basic modern patch */
 }
 
 #root {
@@ -86,10 +85,10 @@
 
 #root {
   --background-primary: white;
-  --background-accent: #2c5485;
+  --background-accent: #62a0ec;
   --background-danger: #ff7777;
   --text-primary: black;
-  --text-accent: #eeeeee;
+  --text-accent: #3a444f;
   --text-error: #ee4040;
   --light-gray: #dedede;
 }
@@ -97,7 +96,7 @@
 #root.dark {
   --background-primary: #1c1c1f;
   --background-accent: #2c5485;
-  --background-danger: #ff7777;
+  --background-danger: #482222;
   --text-primary: #c7c7c7;
   --text-accent: #eeeeee;
   --text-error: #ee4040;

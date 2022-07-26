@@ -5,7 +5,7 @@ import { IProps, TButtonType } from './interfaces';
 const buttonBorderColors: {
   [key in TButtonType]?: string;
 } = {
-  accent: getColor('lightGray', 'accent'),
+  accent: getColor('background', 'accent'),
   primary: getColor('lightGray', 'primary'),
   danger: getColor('lightGray', 'danger'),
 };
@@ -24,5 +24,5 @@ export const ButtonWrapper = styled.div`
   text-align: center;
   padding: 6px;
   border-radius: 3px;
-  color: ${getColor('text', 'primary')};
+  color: ${getColor('text', 'accent')};
 `;

@@ -10,7 +10,7 @@ function AuthPage() {
       <Typography.Text1>Сивиля секс</Typography.Text1>
       <Input title="Логин" icon="@" />
       <Input title="Пароль" type="password" error="Жопа топ" />
-      <Button type="danger" text="Войти" />
+      <Button type="accent" text="Войти" />
     </Wrapper>
   );
 }
