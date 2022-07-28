@@ -6,6 +6,8 @@ import { ILoginResponse } from 'dal/user/interfaces';
 import { cache } from 'utils/cache';
 import { AUTH_KEY } from './constants';
 
+console.log(import.meta.env);
+
 export class DalAuthStore {
   token: string | null = null;
 
