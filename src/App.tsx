@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import AuthPage from 'pages/auth';
 import { rootStore } from 'dal/root-store';
@@ -13,9 +13,11 @@ const AppWrapper = styled.div`
 `;
 
 function App() {
-  const { isAuth } = rootStore.dalAuthStore;
+  const { isAuth, init } = rootStore.dalAuthStore;
 
   const { toggleTheme } = rootStore.dalUIStore;
+
+  useEffect(init, []);
 
   if (!isAuth) {
     return (
@@ -35,8 +37,22 @@ function App() {
     <AppWrapper>
       <BrowserRouter>
         <Routes>
-          <Route element={<AuthPage />} path="/auth" />
-          <Route path="*" element={<Navigate to="/auth" replace />} />
+          <Route
+            element={
+              <div>
+                {rootStore.dalUserStore.userInfo?.login}
+                <Button
+                  type="danger"
+                  onClick={() => {
+                    rootStore.dalAuthStore.logout();
+                  }}
+                  text="Выйти"
+                />
+              </div>
+            }
+            path="/"
+          />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
     </AppWrapper>

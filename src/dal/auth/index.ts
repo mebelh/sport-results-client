@@ -2,18 +2,28 @@ import { makeAutoObservable } from 'mobx';
 import { RootStore } from 'dal/root-store';
 import { IAuthParams } from 'dal/auth/interfaces';
 import { ELoadStatus } from 'dal/interfaces';
+import { ILoginResponse, IUserInfo } from 'dal/user/interfaces';
+import { cache } from 'utils/cache';
+import { AUTH_KEY } from './constants';
 
 export class DalAuthStore {
-  token = '';
+  token: string | null = null;
 
   rootStore: RootStore;
 
   step: ELoadStatus = ELoadStatus.Loading;
 
   constructor(rootStore: RootStore) {
+    const token = cache.get<string>(AUTH_KEY);
+    this.setToken(token);
     this.rootStore = rootStore;
+
     makeAutoObservable(this);
   }
+
+  init = () => {
+    this.rootStore.dalUserStore.syncUserInfo();
+  };
 
   get isLoading() {
     return this.step === ELoadStatus.Loading;
@@ -27,27 +37,30 @@ export class DalAuthStore {
     return Boolean(this.token);
   }
 
-  setToken(token: string) {
+  private setToken(token: string | null) {
     this.token = token;
+    cache.set(AUTH_KEY, token);
   }
 
-  goToStep(step: ELoadStatus) {
+  private goToStep(step: ELoadStatus) {
     this.step = step;
   }
 
   async login(login: string, password: string) {
     try {
       this.goToStep(ELoadStatus.Loading);
-      const token = await this.rootStore.API.post<string, IAuthParams>(
-        '/auth/login',
-        {
-          login,
-          password,
-        }
-      );
+      const { token, user } = await this.rootStore.API.post<
+        ILoginResponse,
+        IAuthParams
+      >('auth', {
+        login,
+        password,
+      });
+      this.rootStore.dalUserStore.setUserInfo(user);
       this.setToken(token);
       this.goToStep(ELoadStatus.Success);
     } catch (e: any) {
+      console.log(e);
       this.goToStep(ELoadStatus.Error);
     }
   }

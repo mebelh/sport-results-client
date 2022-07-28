@@ -1,6 +1,7 @@
 import { RootStore } from 'dal/root-store';
-import { IUserInfo } from 'dal/user/interfaces';
+import { IUserInfo, IUserResponse } from 'dal/user/interfaces';
 import { ELoadStatus } from 'dal/interfaces';
+import { makeAutoObservable } from 'mobx';
 
 export class DalUserStore {
   rootStore: RootStore;
@@ -19,16 +20,18 @@ export class DalUserStore {
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
+
+    makeAutoObservable(this);
   }
 
-  async syncUserInfo() {
+  syncUserInfo = async () => {
     this.goToStep(ELoadStatus.Loading);
     try {
-      const userInfo = await this.rootStore.API.get<IUserInfo>('/user');
-      this.setUserInfo(userInfo);
+      const userInfo = await this.rootStore.API.get<IUserResponse>('/user');
+      this.setUserInfo(userInfo.user);
       this.goToStep(ELoadStatus.Success);
     } catch (e: any) {
       this.goToStep(ELoadStatus.Error);
     }
-  }
+  };
 }

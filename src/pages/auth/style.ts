@@ -9,5 +9,10 @@ export const Wrapper = styled.div`
 
   @media (max-width: 400px) {
     padding: 10px;
+
+    & > :last-child {
+      width: 50%;
+      margin: 20px auto;
+    }
   }
 `;

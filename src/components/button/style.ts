@@ -22,7 +22,7 @@ export const ButtonWrapper = styled.div`
   border: 1px solid ${({ type }: IProps) => buttonBorderColors[type]};
   background-color: ${({ type }: IProps) => buttonBackgroundColors[type]};
   text-align: center;
-  padding: 6px;
+  padding: 6px 10px;
   border-radius: 3px;
   color: ${getColor('text', 'accent')};
 `;
