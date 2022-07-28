@@ -14,6 +14,8 @@ export class API {
     return {
       headers: {
         authorization: `token ${this.rootStore.dalAuthStore.token}`,
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
       },
       baseURL: BASE_URL,
       params,
