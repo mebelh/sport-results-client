@@ -3,14 +3,21 @@ import Input from 'components/input';
 import Typography from 'components/typography';
 import Button from 'components/button';
 import { rootStore } from 'dal/root-store';
+import { observer } from 'mobx-react-lite';
 import { Wrapper } from './style';
 
 function AuthPage() {
   const [login, setLogin] = useState('');
 
+  const { dalAuthStore } = rootStore;
+
   const onChangeLoginHandler = (newLogin: string) => {
     setLogin(newLogin);
   };
+
+  if (dalAuthStore.isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Wrapper>
@@ -26,11 +33,11 @@ function AuthPage() {
         type="accent"
         text="Войти"
         onClick={() => {
-          rootStore.dalAuthStore.login(login, '12345');
+          dalAuthStore.login(login, '12345');
         }}
       />
     </Wrapper>
   );
 }
 
-export default AuthPage;
+export default observer(AuthPage);

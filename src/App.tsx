@@ -6,6 +6,7 @@ import { observer } from 'mobx-react-lite';
 import styled from 'styled-components';
 import getColor from 'utils/getColor';
 import Button from 'components/button';
+import LogoLoader from 'components/logoLoader';
 
 const AppWrapper = styled.div`
   min-height: 100vh;
@@ -14,10 +15,15 @@ const AppWrapper = styled.div`
 
 function App() {
   const { isAuth, init } = rootStore.dalAuthStore;
+  const { isLoading } = rootStore.dalUserStore;
 
   const { toggleTheme } = rootStore.dalUIStore;
 
   useEffect(init, []);
+
+  if (isLoading) {
+    return <LogoLoader fullscreen />;
+  }
 
   if (!isAuth) {
     return (

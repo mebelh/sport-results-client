@@ -2,7 +2,7 @@ import { makeAutoObservable } from 'mobx';
 import { RootStore } from 'dal/root-store';
 import { IAuthParams } from 'dal/auth/interfaces';
 import { ELoadStatus } from 'dal/interfaces';
-import { ILoginResponse, IUserInfo } from 'dal/user/interfaces';
+import { ILoginResponse } from 'dal/user/interfaces';
 import { cache } from 'utils/cache';
 import { AUTH_KEY } from './constants';
 
@@ -11,10 +11,11 @@ export class DalAuthStore {
 
   rootStore: RootStore;
 
-  step: ELoadStatus = ELoadStatus.Loading;
+  step: ELoadStatus = ELoadStatus.Idle;
 
   constructor(rootStore: RootStore) {
     const token = cache.get<string>(AUTH_KEY);
+    console.log(token);
     this.setToken(token);
     this.rootStore = rootStore;
 

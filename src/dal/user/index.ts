@@ -10,6 +10,14 @@ export class DalUserStore {
 
   public step: ELoadStatus = ELoadStatus.Idle;
 
+  get isLoading(): boolean {
+    return this.step === ELoadStatus.Loading;
+  }
+
+  get isError(): boolean {
+    return this.step === ELoadStatus.Error;
+  }
+
   setUserInfo(userInfo: IUserInfo) {
     this.userInfo = userInfo;
   }
