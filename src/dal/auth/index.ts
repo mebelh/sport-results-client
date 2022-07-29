@@ -10,13 +10,12 @@ export class DalAuthStore {
 
   rootStore: RootStore;
 
-  step: ELoadStatus = ELoadStatus.Loading;
+  step: ELoadStatus = ELoadStatus.Idle;
 
   constructor(rootStore: RootStore) {
     const token = cache.get<string>(AUTH_KEY);
     this.setToken(token);
     this.rootStore = rootStore;
-
     makeAutoObservable(this);
   }
 
