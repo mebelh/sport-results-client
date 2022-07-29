@@ -8,6 +8,7 @@ import getColor from 'utils/getColor';
 import Button from 'components/button';
 import LogoLoader from 'components/logoLoader';
 import ResultsPage from 'pages/results';
+import SettingsPage from 'pages/settings';
 
 const AppWrapper = styled.div`
   min-height: 100vh;
@@ -45,6 +46,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<ResultsPage />} path="/user/results" />
+          <Route element={<SettingsPage />} path="/user/settings" />
           <Route path="*" element={<Navigate to="/user/results" replace />} />
 
           <Route path="*" element={<Navigate to="/" replace />} />

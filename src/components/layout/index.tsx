@@ -3,6 +3,7 @@ import Typography from 'components/typography';
 import { observer } from 'mobx-react-lite';
 import { rootStore } from 'dal/root-store';
 import Button from 'components/button';
+import { Link } from 'react-router-dom';
 import {
   MenuWrapper,
   Wrapper,
@@ -28,10 +29,14 @@ function Layout({ children }: IProps): React.ReactElement {
 
       <MenuWrapper isShowMenu={isShowMenu}>
         <MenuItemWrapper>
-          <Typography.Text4>Рез</Typography.Text4>
+          <Link to="/user">
+            <Typography.Text4>Рез</Typography.Text4>
+          </Link>
         </MenuItemWrapper>
         <MenuItemWrapper>
-          <Typography.Text4>Настройки</Typography.Text4>
+          <Link to="/user/settings">
+            <Typography.Text4>Настройки</Typography.Text4>
+          </Link>
         </MenuItemWrapper>
         <MenuItemWrapper>
           <Typography.Text4>Профиль</Typography.Text4>

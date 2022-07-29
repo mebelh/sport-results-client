@@ -65,7 +65,7 @@ export class DalAuthStore {
     }
   }
 
-  logout() {
+  logout = () => {
     this.setToken('');
-  }
+  };
 }
