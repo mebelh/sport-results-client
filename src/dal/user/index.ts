@@ -29,6 +29,10 @@ export class DalUserStore {
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
 
+    if (this.rootStore.dalAuthStore.isAuth) {
+      this.goToStep(ELoadStatus.Loading);
+    }
+
     makeAutoObservable(this);
   }
 

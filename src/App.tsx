@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import AuthPage from 'pages/auth';
 import { rootStore } from 'dal/root-store';
@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import getColor from 'utils/getColor';
 import Button from 'components/button';
 import LogoLoader from 'components/logoLoader';
+import ResultsPage from 'pages/results';
 
 const AppWrapper = styled.div`
   min-height: 100vh;
@@ -19,7 +20,7 @@ function App() {
 
   const { toggleTheme } = rootStore.dalUIStore;
 
-  useEffect(init, []);
+  useLayoutEffect(init, []);
 
   if (isLoading) {
     return <LogoLoader fullscreen />;
@@ -43,21 +44,9 @@ function App() {
     <AppWrapper>
       <BrowserRouter>
         <Routes>
-          <Route
-            element={
-              <div>
-                {rootStore.dalUserStore.userInfo?.login}
-                <Button
-                  type="danger"
-                  onClick={() => {
-                    rootStore.dalAuthStore.logout();
-                  }}
-                  text="Выйти"
-                />
-              </div>
-            }
-            path="/"
-          />
+          <Route element={<ResultsPage />} path="/user/results" />
+          <Route path="*" element={<Navigate to="/user/results" replace />} />
+
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>

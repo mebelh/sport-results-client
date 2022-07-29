@@ -25,4 +25,5 @@ export const ButtonWrapper = styled.div`
   padding: 6px 10px;
   border-radius: 3px;
   color: ${getColor('text', 'accent')};
+  transition: all 0.1s ease;
 `;

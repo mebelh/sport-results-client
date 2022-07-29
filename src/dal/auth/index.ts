@@ -3,19 +3,17 @@ import { RootStore } from 'dal/root-store';
 import { IAuthParams } from 'dal/auth/interfaces';
 import { ELoadStatus } from 'dal/interfaces';
 import { ILoginResponse } from 'dal/user/interfaces';
-import { cache } from 'utils/cache';
-import { AUTH_KEY } from './constants';
+import { AUTH_KEY, cache } from 'utils/cache';
 
 export class DalAuthStore {
   token: string | null = null;
 
   rootStore: RootStore;
 
-  step: ELoadStatus = ELoadStatus.Idle;
+  step: ELoadStatus = ELoadStatus.Loading;
 
   constructor(rootStore: RootStore) {
     const token = cache.get<string>(AUTH_KEY);
-    console.log(token);
     this.setToken(token);
     this.rootStore = rootStore;
 
@@ -23,7 +21,9 @@ export class DalAuthStore {
   }
 
   init = () => {
-    this.rootStore.dalUserStore.syncUserInfo();
+    if (this.rootStore.dalAuthStore.isAuth) {
+      this.rootStore.dalUserStore.syncUserInfo();
+    }
   };
 
   get isLoading() {
