@@ -21,7 +21,7 @@ export const MenuWrapper = styled.div`
 `;
 
 export const MenuItemWrapper = styled.div`
-  padding: 10px;
+  padding: 15px 15px 20px;
 `;
 
 export const ToggleMenuButtonWrapper = styled.div`
