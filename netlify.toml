@@ -1,8 +1,13 @@
 # example netlify.toml
+# [build]
+#   command = "vite build"
+#   functions = "netlify/functions"
+#   publish = "dist"
+
 [build]
-  command = "vite build"
-  functions = "netlify/functions"
   publish = "dist"
+  command = "npx pnpm i --store=node_modules/.pnpm-store && npx pnpm run build"
+
 
 [build.environment]
   NODE_VERSION = "14"
