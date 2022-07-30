@@ -1,10 +1,10 @@
 type TScope = 'background' | 'text' | 'lightGray';
 
-type TVariant = 'primary' | 'accent' | 'error' | 'danger';
+export type TColorVariant = 'primary' | 'accent' | 'error' | 'danger';
 
 const colors: {
   [scopeKey in TScope]: {
-    [variantKey in TVariant]?: string;
+    [variantKey in TColorVariant]?: string;
   };
 } = {
   background: {
@@ -23,6 +23,6 @@ const colors: {
   },
 };
 
-export default function getColor(scope: TScope, variant: TVariant) {
+export default function getColor(scope: TScope, variant: TColorVariant) {
   return colors[scope][variant];
 }

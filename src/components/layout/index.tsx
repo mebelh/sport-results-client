@@ -28,16 +28,16 @@ function Layout({ children }: IProps): React.ReactElement {
       </ToggleMenuButtonWrapper>
 
       <MenuWrapper isShowMenu={isShowMenu}>
-        <MenuItemWrapper>
-          <Link to="/user">
-            <Typography.Text4>Рез</Typography.Text4>
-          </Link>
-        </MenuItemWrapper>
-        <MenuItemWrapper>
-          <Link to="/user/settings">
+        <Link to="/user">
+          <MenuItemWrapper>
+            <Typography.Text4 variant="accent">Рез</Typography.Text4>
+          </MenuItemWrapper>
+        </Link>
+        <Link to="/user/settings">
+          <MenuItemWrapper>
             <Typography.Text4>Настройки</Typography.Text4>
-          </Link>
-        </MenuItemWrapper>
+          </MenuItemWrapper>
+        </Link>
         <MenuItemWrapper>
           <Typography.Text4>Профиль</Typography.Text4>
         </MenuItemWrapper>
