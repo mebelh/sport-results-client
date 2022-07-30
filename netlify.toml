@@ -19,6 +19,7 @@
    to = "/index.html"
    status = 200
 
+
 [[headers]]
   for = "/manifest.webmanifest"
   [headers.values]
@@ -27,8 +28,10 @@
 [[headers]]
   for = "/assets/*"
   [headers.values]
-    max-age='31536'
-
+    cache-control = '''
+    max-age=31536,
+    immutable
+    '''
   ## (optional) Settings for Netlify Dev
   ## https://github.com/netlify/cli/blob/main/docs/netlify-dev.md#project-detection
   #[dev]
