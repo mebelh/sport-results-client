@@ -12,9 +12,7 @@ export default defineConfig({
   plugins: [
     VitePWA({
       registerType: 'autoUpdate',
-      devOptions: {
-        enabled: true,
-      },
+      injectRegister: 'auto',
       manifest: {
         name: 'Sport Results',
         short_name: 'SR',
@@ -22,14 +20,9 @@ export default defineConfig({
         theme_color: '#ffffff',
         icons: [
           {
-            src: 'vite.svg',
+            src: 'icon-192x192.png',
             sizes: '192x192',
-            type: 'image/svg',
-          },
-          {
-            src: 'vite.svg',
-            sizes: '512x512',
-            type: 'image/svg',
+            type: 'image/png',
           },
         ],
       },
