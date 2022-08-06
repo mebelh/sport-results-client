@@ -15,19 +15,24 @@ class Cache {
   }
 
   get<T>(key: string): T | null {
-    if (this.localCache[key]) {
-      return this.localCache[key];
-    }
+    try {
+      if (this.localCache[key]) {
+        return this.localCache[key];
+      }
 
-    const stringObj = localStorage.getItem(key);
+      const stringObj = localStorage.getItem(key);
 
-    if (!stringObj) {
+      if (!stringObj) {
+        return null;
+      }
+
+      const obj = JSON.parse(stringObj);
+
+      return this.addToLocalCache(key, obj);
+    } catch (e) {
+      console.log(e);
       return null;
     }
-
-    const obj = JSON.parse(stringObj);
-
-    return this.addToLocalCache(key, obj);
   }
 
   set<T>(key: string, value: T): T {

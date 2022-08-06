@@ -4,10 +4,12 @@ import Typography from 'components/typography';
 import Button from 'components/button';
 import { rootStore } from 'dal/root-store';
 import { observer } from 'mobx-react-lite';
+import { BiLogIn } from 'react-icons/all';
 import { Wrapper } from './style';
 
 function AuthPage() {
   const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
 
   const { dalAuthStore } = rootStore;
 
@@ -21,19 +23,21 @@ function AuthPage() {
 
   return (
     <Wrapper>
-      <Typography.Text1>Сивиля секс</Typography.Text1>
+      <Typography.Text1>Sport Results</Typography.Text1>
+      <Input title="Логин" onChange={onChangeLoginHandler} value={login} />
       <Input
-        title="Логин"
-        icon="@"
-        onChange={onChangeLoginHandler}
-        value={login}
+        title="Пароль"
+        type="password"
+        value={password}
+        onChange={setPassword}
       />
-      <Input title="Пароль" type="password" error="Жопа топ" />
       <Button
         type="accent"
         text="Войти"
+        icon={<BiLogIn size={24} />}
+        iconPosition="right"
         onClick={() => {
-          dalAuthStore.login(login, '12345');
+          dalAuthStore.login(login, password);
         }}
       />
     </Wrapper>

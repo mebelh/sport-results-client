@@ -1,14 +1,15 @@
 import React from 'react';
-import Typography from 'components/typography';
 import { observer } from 'mobx-react-lite';
 import { rootStore } from 'dal/root-store';
 import Button from 'components/button';
-import { Link } from 'react-router-dom';
+import { HiOutlineUserCircle, MdOutlineSettings } from 'react-icons/all';
+import getColor from 'utils/getColor';
 import {
   MenuWrapper,
   Wrapper,
   MenuItemWrapper,
   ToggleMenuButtonWrapper,
+  Title,
 } from './style';
 import { IProps } from './interfaces';
 
@@ -17,6 +18,7 @@ function Layout({ children }: IProps): React.ReactElement {
 
   return (
     <Wrapper>
+      <Title>SR</Title>
       {children}
 
       <ToggleMenuButtonWrapper>
@@ -28,18 +30,11 @@ function Layout({ children }: IProps): React.ReactElement {
       </ToggleMenuButtonWrapper>
 
       <MenuWrapper isShowMenu={isShowMenu}>
-        <Link to="/user">
-          <MenuItemWrapper>
-            <Typography.Text4 variant="accent">Рез</Typography.Text4>
-          </MenuItemWrapper>
-        </Link>
-        <Link to="/user/settings">
-          <MenuItemWrapper>
-            <Typography.Text4>Настройки</Typography.Text4>
-          </MenuItemWrapper>
-        </Link>
-        <MenuItemWrapper>
-          <Typography.Text4>Профиль</Typography.Text4>
+        <MenuItemWrapper to="user">
+          <HiOutlineUserCircle size={24} color={getColor('text', 'primary')} />
+        </MenuItemWrapper>
+        <MenuItemWrapper to="settings">
+          <MdOutlineSettings size={24} color={getColor('text', 'primary')} />
         </MenuItemWrapper>
       </MenuWrapper>
     </Wrapper>

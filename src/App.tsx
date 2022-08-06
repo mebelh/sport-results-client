@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import AuthPage from 'pages/auth';
 import { rootStore } from 'dal/root-store';
@@ -9,6 +9,7 @@ import Button from 'components/button';
 import LogoLoader from 'components/logoLoader';
 import ResultsPage from 'pages/results';
 import SettingsPage from 'pages/settings';
+import Layout from 'components/layout';
 
 const AppWrapper = styled.div`
   min-height: 100vh;
@@ -44,13 +45,15 @@ function App() {
   return (
     <AppWrapper>
       <BrowserRouter>
-        <Routes>
-          <Route element={<ResultsPage />} path="/user/results" />
-          <Route element={<SettingsPage />} path="/user/settings" />
-          <Route path="*" element={<Navigate to="/user/results" replace />} />
+        <Layout>
+          <Routes>
+            <Route element={<ResultsPage />} path="/user/results" />
+            <Route element={<SettingsPage />} path="/settings" />
+            <Route path="*" element={<Navigate to="/user/results" replace />} />
 
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </Layout>
       </BrowserRouter>
     </AppWrapper>
   );

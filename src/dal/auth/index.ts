@@ -34,7 +34,10 @@ export class DalAuthStore {
   }
 
   get isAuth() {
-    return Boolean(this.token);
+    return Boolean(
+      (this.token && this.rootStore.dalUserStore?.isIdle) ||
+        this.rootStore.dalUserStore?.userInfo
+    );
   }
 
   private setToken(token: string | null) {
@@ -46,16 +49,22 @@ export class DalAuthStore {
     this.step = step;
   }
 
+  resetData = () => {
+    this.setToken('');
+    this.goToStep(ELoadStatus.Idle);
+  };
+
   async login(login: string, password: string) {
     try {
       this.goToStep(ELoadStatus.Loading);
       const { token, user } = await this.rootStore.API.post<
         ILoginResponse,
         IAuthParams
-      >('auth', {
+      >('auth/login', {
         login,
         password,
       });
+
       this.rootStore.dalUserStore.setUserInfo(user);
       this.setToken(token);
       this.goToStep(ELoadStatus.Success);
@@ -66,6 +75,7 @@ export class DalAuthStore {
   }
 
   logout = () => {
-    this.setToken('');
+    this.resetData();
+    this.rootStore.dalUserStore.resetData();
   };
 }

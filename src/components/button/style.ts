@@ -24,6 +24,10 @@ export const ButtonWrapper = styled.div`
   text-align: center;
   padding: 6px 10px;
   border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 10px;
   color: ${getColor('text', 'accent')};
   transition: all 0.1s ease;
 `;

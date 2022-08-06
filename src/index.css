@@ -1,4 +1,4 @@
-* {
+*, *:hover, *:active {
   background-clip : border-box;
   background-color : transparent;
   background-image : none;
@@ -85,10 +85,10 @@
 
 #root {
   --background-primary: white;
-  --background-accent: #62a0ec;
+  --background-accent: #84e8e8;
   --background-danger: #ff7777;
   --text-primary: black;
-  --text-accent: #3a444f;
+  --text-accent: #1f3236;
   --text-error: #ee4040;
   --light-gray: #dedede;
 }

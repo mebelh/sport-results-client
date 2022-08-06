@@ -7,3 +7,7 @@ export interface IProps {
 export interface IWrapperProps {
   isShowMenu: boolean;
 }
+
+export interface IMenuItemWrapperProps {
+  isActive?: boolean;
+}

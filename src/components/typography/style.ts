@@ -1,10 +1,5 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import getColor, { TColorVariant } from 'utils/getColor';
-
-const textColor = css`
-  color: ${({ variant = 'primary' }: { variant?: TColorVariant }) =>
-    getColor('text', variant)};
-`;
 
 export const Text1 = styled.p`
   font-size: 32px;
