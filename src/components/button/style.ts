@@ -30,4 +30,6 @@ export const ButtonWrapper = styled.div`
   column-gap: 10px;
   color: ${getColor('text', 'accent')};
   transition: all 0.1s ease;
+  line-height: 0;
+  height: 100%;
 `;

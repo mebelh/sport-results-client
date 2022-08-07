@@ -12,7 +12,7 @@ const Button: React.FC<IProps> = ({
 }) => (
   <ButtonWrapper type={type} onClick={onClick}>
     {iconPosition === 'left' && icon}
-    <Typography.Text3>{text}</Typography.Text3>
+    {text && <Typography.Text3>{text}</Typography.Text3>}
     {iconPosition === 'right' && icon}
   </ButtonWrapper>
 );

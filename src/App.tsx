@@ -7,9 +7,10 @@ import styled from 'styled-components';
 import getColor from 'utils/getColor';
 import Button from 'components/button';
 import LogoLoader from 'components/logoLoader';
-import ResultsPage from 'pages/results';
 import SettingsPage from 'pages/settings';
 import Layout from 'components/layout';
+import StartPage from 'pages/start';
+import EquipmentPage from 'pages/equipment';
 
 const AppWrapper = styled.div`
   min-height: 100vh;
@@ -47,9 +48,9 @@ function App() {
       <BrowserRouter>
         <Layout>
           <Routes>
-            <Route element={<ResultsPage />} path="/user/results" />
+            <Route element={<StartPage />} path="/" />
             <Route element={<SettingsPage />} path="/settings" />
-            <Route path="*" element={<Navigate to="/user/results" replace />} />
+            <Route element={<EquipmentPage />} path="/equipment" />
 
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

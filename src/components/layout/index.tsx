@@ -2,7 +2,11 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { rootStore } from 'dal/root-store';
 import Button from 'components/button';
-import { HiOutlineUserCircle, MdOutlineSettings } from 'react-icons/all';
+import {
+  AiOutlineHome,
+  HiOutlineMenu,
+  MdOutlineSettings,
+} from 'react-icons/all';
 import getColor from 'utils/getColor';
 import {
   MenuWrapper,
@@ -25,13 +29,13 @@ function Layout({ children }: IProps): React.ReactElement {
         <Button
           type={isShowMenu ? 'accent' : 'primary'}
           onClick={toggleShowMenu}
-          text="меню"
+          icon={<HiOutlineMenu size={21} />}
         />
       </ToggleMenuButtonWrapper>
 
       <MenuWrapper isShowMenu={isShowMenu}>
-        <MenuItemWrapper to="user">
-          <HiOutlineUserCircle size={24} color={getColor('text', 'primary')} />
+        <MenuItemWrapper to="/">
+          <AiOutlineHome size={24} color={getColor('text', 'primary')} />
         </MenuItemWrapper>
         <MenuItemWrapper to="settings">
           <MdOutlineSettings size={24} color={getColor('text', 'primary')} />
