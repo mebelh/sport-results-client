@@ -1,6 +1,6 @@
 import React, { HTMLInputTypeAttribute } from 'react';
 
-export interface IProps {
+export interface IInputProps {
   onChange?: (newValue: string, oldValue?: string) => void;
   value?: string;
   icon?: React.ReactNode;

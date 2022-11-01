@@ -22,8 +22,8 @@ function Layout({ children }: IProps): React.ReactElement {
 
   return (
     <Wrapper>
-      <Title>SR</Title>
       {children}
+      <Title>SR</Title>
 
       <ToggleMenuButtonWrapper>
         <Button

@@ -5,7 +5,7 @@ import Typography from 'components/typography';
 import { IWrapperProps } from './interfaces';
 
 export const Wrapper = styled.div`
-  padding: 70px 8px 20px;
+  padding: 70px 8px 70px;
 `;
 
 export const MenuWrapper = styled.div`
@@ -36,9 +36,12 @@ export const MenuItemWrapper = styled(NavLink)`
 `;
 
 export const Title = styled(Typography.Text1)`
-  padding: 0 0 20px;
+  padding: 10px;
   position: fixed;
-  top: 10px;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: ${getColor('background', 'primary')};
 `;
 
 export const ToggleMenuButtonWrapper = styled.div`

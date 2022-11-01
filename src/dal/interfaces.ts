@@ -1,6 +1,6 @@
 export enum ELoadStatus {
-  Loading,
-  Error,
-  Success,
-  Idle,
+  Loading = 'Loading',
+  Error = 'Error',
+  Success = 'Success',
+  Idle = 'Idle',
 }

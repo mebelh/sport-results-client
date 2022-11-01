@@ -10,7 +10,7 @@ export class DalAuthStore {
 
   rootStore: RootStore;
 
-  step: ELoadStatus = ELoadStatus.Idle;
+  step: ELoadStatus = ELoadStatus.Loading;
 
   constructor(rootStore: RootStore) {
     const token = cache.get<string>(AUTH_KEY);
@@ -20,8 +20,11 @@ export class DalAuthStore {
   }
 
   init = () => {
-    if (this.rootStore.dalAuthStore.isAuth) {
+    if (this.isAuth) {
       this.rootStore.dalUserStore.syncUserInfo();
+    } else {
+      this.goToStep(ELoadStatus.Idle);
+      this.rootStore.dalUserStore.goToStep(ELoadStatus.Idle);
     }
   };
 

@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from 'react';
-import { IProps } from './interfaces';
 import {
   Error,
   Wrapper,
@@ -7,8 +6,9 @@ import {
   Title,
   InputWrapper,
 } from './style';
+import { IInputProps } from './interfaces';
 
-const Input: React.FC<IProps> = ({
+const Input: React.FC<IInputProps> = ({
   value,
   type,
   onChange,

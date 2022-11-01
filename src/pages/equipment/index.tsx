@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { rootStore } from 'dal/root-store';
 import Input from 'components/input';
@@ -7,39 +7,22 @@ import Button from 'components/button';
 import { ListWrapper, EquipmentWrapper, NewEquipmentWrapper } from './style';
 
 const EquipmentPage: React.FC = () => {
-  const { syncEquipmentList, equipment, isLoading, createEquipment } =
-    rootStore.dalEquipmentStore;
-  useEffect(() => {
-    syncEquipmentList();
-  }, []);
-  const [newEquipment, setNewEquipment] = useState('');
-  const createEquipmentHandler = () => {
-    createEquipment({
-      name: newEquipment,
-      tags: [],
-    });
-    setNewEquipment('');
-  };
+  const { createEquipment, inputProps, init } = rootStore.equipmentStore;
+  const { equipment, isLoading } = rootStore.dalEquipmentStore;
+
+  useLayoutEffect(init, []);
 
   return (
     <div>
       <NewEquipmentWrapper>
         <Typography.Text2>Новый реквизит</Typography.Text2>
-        <Input
-          title="Название"
-          value={newEquipment}
-          onChange={setNewEquipment}
-        />
-        <Button
-          type="primary"
-          text="Создать"
-          onClick={createEquipmentHandler}
-        />
+        <Input title="Название" {...inputProps} />
+        <Button type="primary" text="Создать" onClick={createEquipment} />
       </NewEquipmentWrapper>
 
       <ListWrapper>
         {equipment.map((e, index) => (
-          <EquipmentWrapper key={e.name}>
+          <EquipmentWrapper key={e.id}>
             <Typography.Text3>
               {index + 1}. {e.name}
             </Typography.Text3>

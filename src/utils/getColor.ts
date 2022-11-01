@@ -1,6 +1,12 @@
 type TScope = 'background' | 'text' | 'lightGray';
 
-export type TColorVariant = 'primary' | 'accent' | 'error' | 'danger';
+export type TColorVariant =
+  | 'primary'
+  | 'accent'
+  | 'error'
+  | 'danger'
+  | 'transparentPrimary'
+  | 'transparentAccent';
 
 const colors: {
   [scopeKey in TScope]: {
@@ -11,6 +17,8 @@ const colors: {
     accent: 'var(--background-accent)',
     primary: 'var(--background-primary)',
     danger: 'var(--background-danger)',
+    transparentPrimary: 'var(--background-transparent-primary)',
+    transparentAccent: 'var(--background-transparent-accent)',
   },
   text: {
     primary: 'var(--text-primary)',

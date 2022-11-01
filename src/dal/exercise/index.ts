@@ -1,13 +1,19 @@
 import { ELoadStatus } from 'dal/interfaces';
 import { RootStore } from 'dal/root-store';
+import { makeAutoObservable } from 'mobx';
 import { IExercise, IExercisesResponse } from './interfaces';
 
-export class DalExerciseStore {
-  rootStore: RootStore;
+export class DalExercisesStore {
+  private rootStore: RootStore;
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
+    makeAutoObservable(this);
   }
+
+  init = () => {
+    this.syncExercisesList();
+  };
 
   exercisesList: IExercise[] = [];
 
@@ -34,7 +40,7 @@ export class DalExerciseStore {
     this.setExercises([]);
   }
 
-  syncExercisesList = async () => {
+  private syncExercisesList = async () => {
     this.goToStep(ELoadStatus.Loading);
 
     try {

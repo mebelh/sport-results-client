@@ -8,7 +8,7 @@ export class DalUserStore {
 
   public userInfo: IUserInfo | null = null;
 
-  private step: ELoadStatus = ELoadStatus.Idle;
+  step: ELoadStatus = ELoadStatus.Loading;
 
   private isRepeat = false;
 
@@ -38,12 +38,16 @@ export class DalUserStore {
     this.userInfo = userInfo;
   }
 
-  goToStep(step: ELoadStatus) {
+  goToStep(step: DalUserStore['step']) {
     this.step = step;
   }
 
   resetData = () => {
     this.setUserInfo(null);
+  };
+
+  setIsRepeat = (isRepeat: DalUserStore['isRepeat']) => {
+    this.isRepeat = isRepeat;
   };
 
   syncUserInfo = async () => {
@@ -52,10 +56,10 @@ export class DalUserStore {
       const userInfo = await this.rootStore.API.get<IUserResponse>('/user');
       this.setUserInfo(userInfo.user);
       this.goToStep(ELoadStatus.Success);
-      this.isRepeat = false;
+      this.setIsRepeat(false);
     } catch (e: any) {
       this.goToStep(ELoadStatus.Error);
-      this.isRepeat = true;
+      this.setIsRepeat(true);
       setTimeout(() => {
         this.syncUserInfo();
       }, 3000);

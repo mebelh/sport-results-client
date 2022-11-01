@@ -87,6 +87,8 @@
   --background-primary: white;
   --background-accent: #84e8e8;
   --background-danger: #ff7777;
+  --background-transparent-primary: rgba(255, 255, 255, 0.9);
+  --background-transparent-accent: rgba(132, 232, 232, 0.9);
   --text-primary: black;
   --text-accent: #1f3236;
   --text-error: #ee4040;
@@ -97,6 +99,8 @@
   --background-primary: #1c1c1f;
   --background-accent: #2c5485;
   --background-danger: #482222;
+  --background-transparent-primary: rgba(28, 28, 31, 0.9);
+  --background-transparent-accent: rgba(44, 84, 133, 0.9);
   --text-primary: #c7c7c7;
   --text-accent: #eeeeee;
   --text-error: #ee4040;

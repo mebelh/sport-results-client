@@ -40,7 +40,10 @@ module.exports = {
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
     "no-shadow": "off",
-    "@typescript-eslint/no-shadow": "error"
+    "@typescript-eslint/no-shadow": "error",
+    'react/require-default-props': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'no-use-before-define': 'off',
   },
   settings: {
     "import/extensions": [".js", ".jsx", ".ts", ".tsx"],

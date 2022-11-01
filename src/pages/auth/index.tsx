@@ -13,10 +13,6 @@ function AuthPage() {
 
   const { dalAuthStore } = rootStore;
 
-  const onChangeLoginHandler = (newLogin: string) => {
-    setLogin(newLogin);
-  };
-
   if (dalAuthStore.isLoading) {
     return <div>Loading...</div>;
   }
@@ -24,7 +20,7 @@ function AuthPage() {
   return (
     <Wrapper>
       <Typography.Text1>Sport Results</Typography.Text1>
-      <Input title="Логин" onChange={onChangeLoginHandler} value={login} />
+      <Input title="Логин" onChange={setLogin} value={login} />
       <Input
         title="Пароль"
         type="password"

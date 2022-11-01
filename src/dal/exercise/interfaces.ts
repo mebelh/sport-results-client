@@ -1,10 +1,9 @@
-export interface Equipment {
-  name: string;
-}
+import { IEquipment } from 'dal/equipment/interfaces';
 
 export interface IExercise {
   name: string;
-  equipment: Equipment[];
+  equipment: IEquipment[];
+  id: string;
 }
 
 export interface IExercisesResponse {

@@ -1,7 +1,7 @@
 import React, { useLayoutEffect } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import AuthPage from 'pages/auth';
 import { rootStore } from 'dal/root-store';
+import AuthPage from 'pages/auth';
 import { observer } from 'mobx-react-lite';
 import styled from 'styled-components';
 import getColor from 'utils/getColor';
@@ -11,6 +11,7 @@ import SettingsPage from 'pages/settings';
 import Layout from 'components/layout';
 import StartPage from 'pages/start';
 import EquipmentPage from 'pages/equipment';
+import ExercisesPage from 'pages/exercises';
 
 const AppWrapper = styled.div`
   min-height: 100vh;
@@ -51,6 +52,7 @@ function App() {
             <Route element={<StartPage />} path="/" />
             <Route element={<SettingsPage />} path="/settings" />
             <Route element={<EquipmentPage />} path="/equipment" />
+            <Route element={<ExercisesPage />} path="/exercises" />
 
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

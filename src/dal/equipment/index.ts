@@ -1,7 +1,7 @@
 import { RootStore } from 'dal/root-store';
 import { ELoadStatus } from 'dal/interfaces';
 import { makeAutoObservable } from 'mobx';
-import { IEquipment } from './interfaces';
+import { ICreateEquipmentDto, IEquipment } from './interfaces';
 
 export class DalEquipmentStore {
   rootStore: RootStore;
@@ -33,14 +33,14 @@ export class DalEquipmentStore {
     }
   };
 
-  createEquipment = async (createEquipmentDto: IEquipment) => {
+  createEquipment = async (createEquipmentDto: ICreateEquipmentDto) => {
     if (!createEquipmentDto.name) {
       return;
     }
-    const equipment = await this.rootStore.API.post<IEquipment, IEquipment>(
-      '/equipment/create',
-      createEquipmentDto
-    );
+    const equipment = await this.rootStore.API.post<
+      IEquipment,
+      ICreateEquipmentDto
+    >('/equipment/create', createEquipmentDto);
 
     this.addEquipment(equipment);
   };
