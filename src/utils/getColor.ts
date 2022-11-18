@@ -3,6 +3,7 @@ type TScope = 'background' | 'text' | 'lightGray';
 export type TColorVariant =
   | 'primary'
   | 'accent'
+  | 'secondary'
   | 'error'
   | 'danger'
   | 'transparentPrimary'
@@ -24,6 +25,7 @@ const colors: {
     primary: 'var(--text-primary)',
     accent: 'var(--text-accent)',
     error: 'var(--text-error)',
+    secondary: 'var(--text-secondary)',
   },
   lightGray: {
     primary: 'var(--light-gray)',

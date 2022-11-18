@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { IProps } from './interfaces';
-import { Value, Container, Title, ContainerValue } from './style';
+import { Value, Container, Title, ContainerValue, Error } from './style';
 
-const Checkbox: React.FC<IProps> = ({ title, value, onChange }) => {
+const Checkbox: React.FC<IProps> = ({ title, value, onChange, error }) => {
   const [state, setState] = useState<boolean>(value || false);
 
   const handleChange = (): void => {
@@ -16,10 +16,11 @@ const Checkbox: React.FC<IProps> = ({ title, value, onChange }) => {
 
   return (
     <Container onClick={handleChange}>
-      <ContainerValue>
+      <ContainerValue error={error}>
         <Value value={value ?? state} />
       </ContainerValue>
       {title && <Title>{title}</Title>}
+      {error && <Error>{error}</Error>}
     </Container>
   );
 };

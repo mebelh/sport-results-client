@@ -4,7 +4,7 @@ import { RootStore } from 'dal/root-store';
 const { VITE_BASE_URL: BASE_URL } = import.meta.env;
 
 export class API {
-  rootStore: RootStore;
+  private rootStore: RootStore;
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;

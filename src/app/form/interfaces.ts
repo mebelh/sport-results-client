@@ -2,44 +2,69 @@ import { Field } from 'app/form/field';
 
 export type TValue = string | number | boolean;
 
-export type TValidate<T extends TValue = string> = (
+export type TKey = string | number | symbol;
+
+export type TFormMode = 'onChange' | 'onSubmit';
+
+export type TValidate<T extends TValue | TValue[] = string> = (
   value?: T
-) => boolean | string;
+) => true | string;
 
 export type TValidateFn<
-  T extends TValue = string,
-  E extends boolean = false
-> = (
-  errorText: string,
-  compression: E extends true ? number : undefined
-) => TValidate<T>;
+  Type extends TValue | TValue[] = string,
+  E extends true | false = false
+> = E extends true
+  ? (compression: number, errorText?: string) => TValidate<Type>
+  : (errorText?: string) => TValidate<Type>;
 
 export interface IInitFieldParams<
-  Name extends string | number | symbol,
-  InitValue extends string | number = string,
-  E extends true | false = false
+  Name extends TKey,
+  Type extends TValue | TValue[]
 > {
-  validate: Field<InitValue, InitValue, E>['validateFns'];
-  initialValue?: InitValue;
-  name: Name;
+  validate: Array<TValidate<Type>>;
+  initialValue: Type;
   errorText?: string;
+  name: Name;
+  mode?: TFormMode;
 }
 
-export type IFields<Args extends Array<string | number | symbol>> = {
-  [key in Args[number]]: Field<key, any, any>;
+export type IFields<
+  Fields extends {
+    [key: string]: TValue | TValue[];
+  }
+> = {
+  [key in keyof Fields]: Field<key, Fields[key]>;
 };
 
-type TOnSuccess = <Args extends Array<string>>(
-  fields: IFields<Args>
-) => void | Promise<void>;
-type TOnError = <Args extends Array<string>>(
-  fields: IFields<Args>
-) => void | Promise<void>;
+type TOnSuccess<
+  Fields extends {
+    [key: string]: TValue | TValue[];
+  }
+> = (fields: {
+  [key in keyof Fields]: Fields[key];
+}) => void | Promise<void>;
 
-export interface IInitFieldsHooks {
-  onSuccess?: TOnSuccess;
-  onError?: TOnError;
+type TOnError<
+  Fields extends {
+    [key: string]: TValue | TValue[];
+  }
+> = (fields: {
+  [key in keyof Fields]?: string;
+}) => void | Promise<void>;
+
+export interface IInitFieldsHooks<
+  Fields extends {
+    [key: string]: TValue | TValue[];
+  }
+> {
+  onSuccess?: TOnSuccess<Fields>;
+  onError?: TOnError<Fields>;
 }
 
-export type TInitFieldsParams<Args extends Array<string | number | symbol>> =
-  Array<IInitFieldParams<keyof Args[number]>>;
+export type TInitFieldsParams<
+  Fields extends {
+    [key: string]: TValue | TValue[];
+  }
+> = {
+  [key in keyof Fields]: Omit<IInitFieldParams<key, Fields[key]>, 'name'>;
+};

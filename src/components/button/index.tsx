@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Typography from 'components/typography';
 import { IProps } from './interfaces';
 import { ButtonWrapper } from './style';
@@ -9,12 +9,18 @@ const Button: React.FC<IProps> = ({
   icon,
   text,
   iconPosition = 'left',
+  isDisabled,
 }) => (
-  <ButtonWrapper type={type} onClick={onClick}>
+  <ButtonWrapper
+    buttonType={type}
+    type="submit"
+    onClick={isDisabled ? undefined : onClick}
+    isDisabled={isDisabled}
+  >
     {iconPosition === 'left' && icon}
     {text && <Typography.Text3>{text}</Typography.Text3>}
     {iconPosition === 'right' && icon}
   </ButtonWrapper>
 );
 
-export default Button;
+export default memo(Button);

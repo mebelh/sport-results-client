@@ -1,7 +1,11 @@
 import { ELoadStatus } from 'dal/interfaces';
 import { RootStore } from 'dal/root-store';
 import { makeAutoObservable } from 'mobx';
-import { IExercise, IExercisesResponse } from './interfaces';
+import {
+  TCreateExerciseDto,
+  IExercise,
+  IExercisesResponse,
+} from './interfaces';
 
 export class DalExercisesStore {
   private rootStore: RootStore;
@@ -55,4 +59,10 @@ export class DalExercisesStore {
       console.warn(e);
     }
   };
+
+  async createExercise(createExerciseDto: TCreateExerciseDto) {
+    await this.rootStore.API.post('/exercises/create', createExerciseDto);
+
+    await this.syncExercisesList();
+  }
 }

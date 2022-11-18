@@ -1,4 +1,5 @@
 import { IEquipment } from 'dal/equipment/interfaces';
+import { TValue } from 'app/form/interfaces';
 
 export interface IExercise {
   name: string;
@@ -9,3 +10,8 @@ export interface IExercise {
 export interface IExercisesResponse {
   exercises: IExercise[];
 }
+
+export type TCreateExerciseDto = {
+  name: string;
+  equipment: TValue[];
+};

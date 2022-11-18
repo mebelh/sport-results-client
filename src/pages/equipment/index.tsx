@@ -4,20 +4,25 @@ import { rootStore } from 'dal/root-store';
 import Input from 'components/input';
 import Typography from 'components/typography';
 import Button from 'components/button';
+import NavigationBar from 'components/navigationBar';
 import { ListWrapper, EquipmentWrapper, NewEquipmentWrapper } from './style';
 
 const EquipmentPage: React.FC = () => {
-  const { createEquipment, inputProps, init } = rootStore.equipmentStore;
+  const { init, form } = rootStore.equipmentStore;
   const { equipment, isLoading } = rootStore.dalEquipmentStore;
 
   useLayoutEffect(init, []);
 
   return (
     <div>
-      <NewEquipmentWrapper>
-        <Typography.Text2>Новый реквизит</Typography.Text2>
-        <Input title="Название" {...inputProps} />
-        <Button type="primary" text="Создать" onClick={createEquipment} />
+      <NavigationBar title={<Typography.Text3>Реквизит</Typography.Text3>} />
+      <NewEquipmentWrapper onSubmit={form.onSubmit}>
+        <Input
+          title="Название"
+          {...form.fields.name.inputProps}
+          type="string"
+        />
+        <Button type="primary" text="Создать" isDisabled={form.canSubmit} />
       </NewEquipmentWrapper>
 
       <ListWrapper>

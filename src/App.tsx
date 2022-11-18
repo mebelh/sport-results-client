@@ -12,6 +12,10 @@ import Layout from 'components/layout';
 import StartPage from 'pages/start';
 import EquipmentPage from 'pages/equipment';
 import ExercisesPage from 'pages/exercises';
+import CreateExercisePage from 'pages/createExercise';
+import { useSyncNavigation } from 'app/routing/store';
+import WorkoutListPage from 'pages/workoutList';
+import CreateWorkoutPage from 'pages/createWorkout';
 
 const AppWrapper = styled.div`
   min-height: 100vh;
@@ -52,7 +56,10 @@ function App() {
             <Route element={<StartPage />} path="/" />
             <Route element={<SettingsPage />} path="/settings" />
             <Route element={<EquipmentPage />} path="/equipment" />
+            <Route element={<CreateExercisePage />} path="/exercises/create" />
             <Route element={<ExercisesPage />} path="/exercises" />
+            <Route element={<WorkoutListPage />} path="/workouts" />
+            <Route element={<CreateWorkoutPage />} path="/workout/create" />
 
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

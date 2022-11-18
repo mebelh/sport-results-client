@@ -22,7 +22,7 @@ export class DalEquipmentStore {
     this.goToStep(ELoadStatus.Loading);
     try {
       const equipment = await this.rootStore.API.get<IEquipment[]>(
-        '/equipment/all'
+        '/equipment'
       );
 
       this.setEquipment(equipment);

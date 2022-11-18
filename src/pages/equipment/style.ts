@@ -11,8 +11,9 @@ export const EquipmentWrapper = styled.div`
   padding: 5px;
 `;
 
-export const NewEquipmentWrapper = styled.div`
+export const NewEquipmentWrapper = styled.form`
   display: flex;
   flex-direction: column;
   row-gap: 6px;
+  margin-top: 18px;
 `;

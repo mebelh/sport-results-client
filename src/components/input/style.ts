@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 import getColor from 'utils/getColor';
 import Typography from 'components/typography';
+import { IInputProps } from 'components/input/interfaces';
 
 export const Wrapper = styled.div`
   position: relative;
+  padding: 0 0 20px;
 `;
 
 export const InputWrapper = styled.div`
@@ -11,9 +13,13 @@ export const InputWrapper = styled.div`
   align-items: center;
   padding: 0 10px;
   gap: 10px;
-  border: 1px solid ${getColor('lightGray', 'primary')};
+  border: 1px solid
+    ${({ error }: Pick<IInputProps<string>, 'error'>) =>
+      error
+        ? getColor('background', 'danger')
+        : getColor('lightGray', 'primary')};
   border-radius: 4px;
-  height: 36px;
+  height: 42px;
   margin-top: 3px;
   color: ${getColor('text', 'primary')};
 `;
@@ -27,7 +33,6 @@ export const Input = styled.input`
 
 export const Error = styled(Typography.Text4)`
   position: absolute;
-  top: calc(100% + 3px);
   left: calc(3px);
   color: ${getColor('text', 'error')};
 `;

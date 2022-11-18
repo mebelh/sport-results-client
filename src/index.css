@@ -92,6 +92,7 @@
   --text-primary: black;
   --text-accent: #1f3236;
   --text-error: #ee4040;
+  --text-secondary: #777777;
   --light-gray: #dedede;
 }
 
@@ -104,5 +105,6 @@
   --text-primary: #c7c7c7;
   --text-accent: #eeeeee;
   --text-error: #ee4040;
+  --text-secondary: #777777;
   --light-gray: #dedede;
 }

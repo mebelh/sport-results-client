@@ -23,7 +23,7 @@ function AuthPage() {
       <Input title="Логин" onChange={setLogin} value={login} />
       <Input
         title="Пароль"
-        type="password"
+        type="string"
         value={password}
         onChange={setPassword}
       />

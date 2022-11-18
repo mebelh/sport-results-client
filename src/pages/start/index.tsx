@@ -21,7 +21,7 @@ const StartPage: React.FC = () => {
         <Link to="/results">
           <Button type="primary" text="Результаты" />
         </Link>
-        <Link to="/trainings">
+        <Link to="/workouts">
           <Button type="primary" text="Тренировки" />
         </Link>
         <Link to="/exercises">

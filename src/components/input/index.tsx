@@ -6,31 +6,45 @@ import {
   Title,
   InputWrapper,
 } from './style';
-import { IInputProps } from './interfaces';
+import { TInputProps } from './interfaces';
 
-const Input: React.FC<IInputProps> = ({
+const Input = ({
   value,
-  type,
+  type = 'string',
   onChange,
   error,
   title,
   icon,
-}) => {
+}: TInputProps) => {
   const [localValue, setLocalValue] = useState(value || '');
 
+  const inputValue = value ?? localValue;
+
   const onChangeHandler: React.ChangeEventHandler<HTMLInputElement> =
-    useCallback(({ target: { value: newValue } }) => {
-      onChange?.(newValue, value ?? localValue);
-      setLocalValue(newValue);
-    }, []);
+    useCallback(
+      ({ target: { value: newValue } }) => {
+        if (type === 'string') {
+          onChange?.(newValue, inputValue);
+          setLocalValue(newValue);
+          return;
+        }
+
+        if (newValue && !Number.isInteger(+newValue)) {
+          return;
+        }
+        onChange?.(+newValue, inputValue);
+        setLocalValue(+newValue);
+      },
+      [onChange, inputValue]
+    );
 
   return (
     <Wrapper>
       <Title>{title}</Title>
-      <InputWrapper>
+      <InputWrapper error={error}>
         {icon && <div>{icon}</div>}
         <StyledInput
-          type={type || 'text'}
+          type="text"
           onChange={onChangeHandler}
           value={value ?? localValue}
         />

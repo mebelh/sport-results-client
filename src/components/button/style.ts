@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import getColor from 'utils/getColor';
-import { IProps, TButtonType } from './interfaces';
+import { TButtonWrapperProps, TButtonType } from './interfaces';
 
 const buttonBorderColors: {
   [key in TButtonType]?: string;
@@ -18,9 +18,16 @@ const buttonBackgroundColors: {
   danger: getColor('background', 'danger'),
 };
 
-export const ButtonWrapper = styled.div`
-  border: 1px solid ${({ type }: IProps) => buttonBorderColors[type]};
-  background-color: ${({ type }: IProps) => buttonBackgroundColors[type]};
+export const ButtonWrapper = styled.button<TButtonWrapperProps>`
+  border: 1px solid
+    ${({ buttonType, isDisabled }) =>
+      isDisabled
+        ? getColor('lightGray', 'primary')
+        : buttonBorderColors[buttonType]};
+  background-color: ${({ buttonType, isDisabled }) =>
+    isDisabled
+      ? getColor('lightGray', 'primary')
+      : buttonBackgroundColors[buttonType]};
   text-align: center;
   padding: 6px 10px;
   border-radius: 3px;
@@ -32,4 +39,5 @@ export const ButtonWrapper = styled.div`
   transition: all 0.1s ease;
   line-height: 0;
   height: 100%;
+  width: 100%;
 `;

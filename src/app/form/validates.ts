@@ -1,35 +1,60 @@
-import { TValidateFn } from 'app/form/interfaces';
+import { TValidateFn, TValue } from 'app/form/interfaces';
+import { throws } from 'assert';
 
-export const isEmail: TValidateFn<string> = (value, errorText) => () =>
-  !value
-    .toLowerCase()
-    .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    ) &&
-  (errorText || 'Некорректный Email');
+export const isEmail: TValidateFn = (errorText) => (value) => {
+  if (
+    value
+      ?.toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      )
+  )
+    return true;
 
-export const isUrl: TValidateFn<string> = (value, errorText) => () =>
-  !value
-    .toLowerCase()
-    .match(
-      /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/
-    ) &&
-  (errorText || 'Некорректный URL');
+  throw errorText || 'Некорректный Email';
+};
 
-export const isNumber: TValidateFn<number> = (value, errorText) => () =>
-  !Number.isInteger(value) && (errorText || 'Некорректное число');
+export const isUrl: TValidateFn = (errorText) => (value) => {
+  if (
+    !value
+      ?.toLowerCase()
+      .match(
+        /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/
+      )
+  )
+    return true;
+  throw errorText || 'Некорректный URL';
+};
 
-export const isTruthy: TValidateFn<boolean> = (value, errorText) => () =>
-  value && (errorText || 'Обязательно');
+export const isNumber: TValidateFn<number> = (errorText) => (value) => {
+  if (Number.isInteger(value)) return true;
+  throw errorText || 'Некорректное число';
+};
+
+export const isTruthy: TValidateFn<TValue> = (errorText) => (value) => {
+  if (value) return true;
+  throw errorText || 'Обязательно';
+};
 
 export const isLover: TValidateFn<number, true> =
-  (errorText, comparison) => (value) =>
-    value !== undefined &&
-    value < comparison &&
-    (errorText || `Число должно быть меньше ${comparison}`);
+  (comparison, errorText) => (value) => {
+    if (value !== undefined && value < comparison) return true;
+    throw errorText || `Число должно быть меньше ${comparison}`;
+  };
 
 export const isOver: TValidateFn<number, true> =
-  (errorText, comparison) => (value) =>
-    value !== undefined &&
-    value > comparison &&
-    (errorText || `число должно быть больше ${comparison}`);
+  (comparison, errorText) => (value) => {
+    if (value !== undefined && value > comparison) {
+      return true;
+    }
+    throw errorText || `Число должно быть больше ${comparison}`;
+  };
+
+export const isLengthMoreThen: TValidateFn<string | TValue[], true> =
+  (compression, errorText) => (value) => {
+    if (value !== undefined && value.length > compression) {
+      return true;
+    }
+
+    throw errorText || `Количество должно быть больше ${compression}`;
+  };
