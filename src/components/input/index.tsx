@@ -24,6 +24,9 @@ const Input = ({
     useCallback(
       ({ target: { value: newValue } }) => {
         if (type === 'string') {
+          // TODO: fix this
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           onChange?.(newValue, inputValue);
           setLocalValue(newValue);
           return;
@@ -32,6 +35,8 @@ const Input = ({
         if (newValue && !Number.isInteger(+newValue)) {
           return;
         }
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         onChange?.(+newValue, inputValue);
         setLocalValue(+newValue);
       },
