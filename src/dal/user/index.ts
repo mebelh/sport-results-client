@@ -51,6 +51,7 @@ export class DalUserStore {
   };
 
   syncUserInfo = async () => {
+    console.log('sync');
     this.goToStep(ELoadStatus.Loading);
     try {
       const userInfo = await this.rootStore.API.get<IUserResponse>('/user');
