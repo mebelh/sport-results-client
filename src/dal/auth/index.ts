@@ -20,6 +20,7 @@ export class DalAuthStore {
   }
 
   init = () => {
+    console.log('init');
     if (this.isAuth) {
       this.rootStore.dalUserStore.syncUserInfo();
     } else {

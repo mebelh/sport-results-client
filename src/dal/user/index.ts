@@ -54,6 +54,7 @@ export class DalUserStore {
     this.goToStep(ELoadStatus.Loading);
     try {
       const userInfo = await this.rootStore.API.get<IUserResponse>('/user');
+      console.log(userInfo);
       this.setUserInfo(userInfo.user);
       this.goToStep(ELoadStatus.Success);
       this.setIsRepeat(false);
