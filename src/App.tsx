@@ -1,5 +1,5 @@
 import ResultsPage from 'pages/results';
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { rootStore } from 'dal/root-store';
 import AuthPage from 'pages/auth';
@@ -14,7 +14,6 @@ import StartPage from 'pages/start';
 import EquipmentPage from 'pages/equipment';
 import ExercisesPage from 'pages/exercises';
 import CreateExercisePage from 'pages/createExercise';
-import { useSyncNavigation } from 'app/routing/store';
 import WorkoutListPage from 'pages/workoutList';
 import CreateWorkoutPage from 'pages/createWorkout';
 
@@ -29,7 +28,7 @@ function App() {
 
   const { toggleTheme } = rootStore.dalUIStore;
 
-  useLayoutEffect(init, []);
+  useEffect(init, []);
 
   if (isLoading) {
     return <LogoLoader fullscreen />;
