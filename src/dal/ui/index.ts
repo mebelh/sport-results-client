@@ -25,7 +25,6 @@ export class DalUIStore {
 
   toggleShowMenu = () => {
     this.setShowMenu(!this.isShowMenu);
-    cache.set('isShowMenu', !this.isShowMenu);
   };
 
   private setShowMenu = (isShow: boolean) => {
