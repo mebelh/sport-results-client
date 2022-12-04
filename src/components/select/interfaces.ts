@@ -14,7 +14,7 @@ export type TSelectElementProps = Omit<
   isSelected: boolean;
 };
 
-export type TSelectProps = Omit<IInputProps<TValue>, 'type' | 'value'> & {
+export type TSelectProps = Omit<IInputProps<string>, 'type' | 'value'> & {
   elements: ISelectElement[];
   value?: TValue;
 };

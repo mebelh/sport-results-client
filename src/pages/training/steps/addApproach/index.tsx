@@ -26,14 +26,14 @@ const AddApproachStep: React.FC = () => {
         {...addApproachForm.fields.exercise.inputProps}
       />
       <Input
-        type="number"
         title="Вес"
         {...addApproachForm.fields.weight.inputProps}
+        type="number"
       />
       <Input
-        type="number"
         title="Количество повторений"
         {...addApproachForm.fields.repetitionsNumber.inputProps}
+        type="number"
       />
 
       <Button type="accent" text="Создать" />
