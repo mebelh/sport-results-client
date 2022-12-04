@@ -24,6 +24,7 @@ const AddApproachStep: React.FC = () => {
           label: exercise.name,
         }))}
         {...addApproachForm.fields.exercise.inputProps}
+        type="string"
       />
       <Input
         title="Вес"
