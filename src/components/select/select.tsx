@@ -31,9 +31,10 @@ const Select: React.FC<TSelectProps> = ({
   error,
   elements,
   placeholder,
+  type = 'string',
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [state, setState] = useState<string>('');
+  const [state, setState] = useState<string | number>('');
   const [cords, setCords] = useState<IPosition | null>(null);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -50,9 +51,18 @@ const Select: React.FC<TSelectProps> = ({
   const localeValue = value ?? state;
   const label = elements.find((e) => e.value === localeValue)?.label;
 
-  const handleChange = (newValue: string) => {
+  const handleChange = (newValue: string | number) => {
     setState(newValue);
-    onChange?.(newValue, localeValue);
+    if (type === 'string') {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      onChange?.(newValue, localeValue);
+    }
+    if (type === 'number') {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      onChange?.(+newValue, +localeValue);
+    }
     close();
   };
 

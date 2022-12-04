@@ -14,10 +14,19 @@ export type TSelectElementProps = Omit<
   isSelected: boolean;
 };
 
-export type TSelectProps = Omit<IInputProps<string>, 'type' | 'value'> & {
+type TSelectPropsType<Type extends TValue> = Omit<IInputProps<Type>, 'type'> & {
   elements: ISelectElement[];
   value?: TValue;
 };
+
+type TSelectPropsString = TSelectPropsType<string> & {
+  type?: 'string';
+};
+type TSelectPropsNumber = TSelectPropsType<number> & {
+  type?: 'number';
+};
+
+export type TSelectProps = TSelectPropsString | TSelectPropsNumber;
 
 export type TMultiSelectProps = Omit<
   IInputProps<TValue[]>,
