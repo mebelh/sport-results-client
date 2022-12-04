@@ -26,13 +26,13 @@ export class RoutingStore {
     }
   }
 
-  goBack() {
+  goBack = () => {
     this.check();
     navigation?.(-1);
-  }
+  };
 
-  push(url: string) {
+  push = (url: string) => {
     this.check();
     this.redirect(url);
-  }
+  };
 }

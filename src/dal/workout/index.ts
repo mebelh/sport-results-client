@@ -16,10 +16,16 @@ export class DalWorkoutStore {
     makeAutoObservable(this);
   }
 
+  setWorkoutList(list: DalWorkoutStore['workoutList']) {
+    this.workoutList = list;
+  }
+
   async syncWorkouts() {
     this.isLoading = true;
 
-    this.workoutList = await this.rootStore.API.get('/workout');
+    const list = await this.rootStore.API.get<IWorkout[]>('/workout');
+
+    this.setWorkoutList(list);
 
     this.isLoading = false;
   }

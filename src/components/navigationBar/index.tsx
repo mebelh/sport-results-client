@@ -1,13 +1,18 @@
+import { rootStore } from 'dal/root-store';
+import { observer } from 'mobx-react-lite';
 import React, { memo } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { AiOutlineArrowLeft } from 'react-icons/all';
 import { Wrapper, ButtonWrapper, Title } from './style';
 import { IProps } from './interfaces';
 
-const NavigationBar: React.FC<IProps> = ({ title }) => {
-  const navigate = useNavigate();
+const NavigationBar: React.FC<IProps> = ({ title, goBackHandler }) => {
+  const { routing } = rootStore;
   const goBack = () => {
-    navigate(-1);
+    if (goBackHandler) {
+      goBackHandler();
+      return;
+    }
+    routing.goBack();
   };
 
   return (
@@ -21,4 +26,4 @@ const NavigationBar: React.FC<IProps> = ({ title }) => {
   );
 };
 
-export default memo(NavigationBar);
+export default memo(observer(NavigationBar));

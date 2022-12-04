@@ -1,4 +1,5 @@
 import ResultsPage from 'pages/results';
+import TrainingPage from 'pages/training';
 import React, { useEffect } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { rootStore } from 'dal/root-store';
@@ -61,6 +62,7 @@ function App() {
             <Route element={<WorkoutListPage />} path="/workouts" />
             <Route element={<CreateWorkoutPage />} path="/workout/create" />
             <Route element={<ResultsPage />} path="/results" />
+            <Route element={<TrainingPage />} path="/training" />
 
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

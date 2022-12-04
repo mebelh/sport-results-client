@@ -34,7 +34,7 @@ export class Field<
     this.initialValue = props.initialValue;
     this.validateFns = [];
     this.errorText = props.errorText || '';
-    this.validateFns = props.validate;
+    this.validateFns = props.validate || [];
     this.name = props.name;
     this.mode = props.mode || 'onSubmit';
 

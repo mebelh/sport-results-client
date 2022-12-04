@@ -12,6 +12,7 @@ import { DalWorkoutStore } from 'dal/workout';
 import { CreateWorkoutStore } from 'pages/createWorkout/viewStore';
 import { ResultsStore } from 'pages/results/viewStore';
 import { WorkoutListPageStore } from 'pages/workoutList/viewStore';
+import { TrainingStore } from 'pages/training/viewStore';
 import { DalResultsStore } from './results';
 
 export class RootStore {
@@ -43,8 +44,11 @@ export class RootStore {
 
   routing: RoutingStore;
 
+  trainingStore: TrainingStore;
+
   constructor() {
     makeAutoObservable(this);
+
     this.dalUserStore = new DalUserStore(this);
     this.dalAuthStore = new DalAuthStore(this);
     this.dalExercisesStore = new DalExercisesStore(this);
@@ -59,6 +63,7 @@ export class RootStore {
     this.routing = new RoutingStore();
     this.dalResultsStore = new DalResultsStore(this);
     this.resultsStore = new ResultsStore(this);
+    this.trainingStore = new TrainingStore(this);
   }
 }
 

@@ -21,7 +21,7 @@ export interface IInitFieldParams<
   Name extends TKey,
   Type extends TValue | TValue[]
 > {
-  validate: Array<TValidate<Type>>;
+  validate?: Array<TValidate<Type>>;
   initialValue: Type;
   errorText?: string;
   name: Name;

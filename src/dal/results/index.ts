@@ -2,7 +2,12 @@ import { ELoadStatus } from 'dal/interfaces';
 // eslint-disable-next-line import/no-cycle
 import { RootStore } from 'dal/root-store';
 import { makeAutoObservable } from 'mobx';
-import { ICreateResultDto, IResult } from './interfaces';
+import {
+  IApproach,
+  ICreateApproachDto,
+  ICreateResultDto,
+  IResult,
+} from './interfaces';
 
 export class DalResultsStore {
   private rootStore: RootStore;
@@ -37,7 +42,9 @@ export class DalResultsStore {
     this.goToSuccess();
   };
 
-  createResult = async (createResultDto: ICreateResultDto) => {
+  createResult = async (
+    createResultDto: ICreateResultDto
+  ): Promise<IResult> => {
     this.goToLoading();
     const newResult = await this.rootStore.API.post<IResult, ICreateResultDto>(
       '/result/create',
@@ -47,5 +54,13 @@ export class DalResultsStore {
     this.results.push(newResult);
 
     this.goToSuccess();
+
+    return newResult;
   };
+
+  addApproach = (createApproachDto: ICreateApproachDto) =>
+    this.rootStore.API.post<IApproach, ICreateApproachDto>(
+      '/result/addApproach',
+      createApproachDto
+    );
 }
