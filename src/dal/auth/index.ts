@@ -20,7 +20,6 @@ export class DalAuthStore {
   }
 
   init = () => {
-    console.log('init', this.isAuth);
     if (this.isAuth) {
       this.rootStore.dalUserStore.syncUserInfo();
     } else {
@@ -38,6 +37,7 @@ export class DalAuthStore {
   }
 
   get isAuth() {
+    console.log(this.token, this.rootStore.dalUserStore?.isIdle);
     return Boolean(
       (this.token && this.rootStore.dalUserStore?.isIdle) ||
         this.rootStore.dalUserStore?.userInfo

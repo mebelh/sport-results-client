@@ -17,9 +17,9 @@ import { DalResultsStore } from './results';
 export class RootStore {
   dalUserStore: DalUserStore;
 
-  API: API;
-
   dalAuthStore: DalAuthStore;
+
+  API: API;
 
   dalUIStore: DalUIStore;
 
@@ -45,9 +45,8 @@ export class RootStore {
 
   constructor() {
     makeAutoObservable(this);
-
-    this.dalAuthStore = new DalAuthStore(this);
     this.dalUserStore = new DalUserStore(this);
+    this.dalAuthStore = new DalAuthStore(this);
     this.dalExercisesStore = new DalExercisesStore(this);
     this.API = new API(this);
     this.dalUIStore = new DalUIStore(this);

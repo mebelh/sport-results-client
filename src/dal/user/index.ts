@@ -1,6 +1,6 @@
+import { ELoadStatus } from 'dal/interfaces';
 import { RootStore } from 'dal/root-store';
 import { IUserInfo, IUserResponse } from 'dal/user/interfaces';
-import { ELoadStatus } from 'dal/interfaces';
 import { makeAutoObservable } from 'mobx';
 
 export class DalUserStore {
@@ -8,12 +8,15 @@ export class DalUserStore {
 
   public userInfo: IUserInfo | null = null;
 
-  step: ELoadStatus = ELoadStatus.Loading;
+  step: ELoadStatus = ELoadStatus.Idle;
 
   private isRepeat = false;
 
   get isLoading(): boolean {
-    return this.step === ELoadStatus.Loading && !this.isRepeat;
+    return (
+      (this.step === ELoadStatus.Loading && !this.isRepeat) ||
+      this.step === ELoadStatus.Idle
+    );
   }
 
   get isIdle(): boolean {
@@ -26,10 +29,6 @@ export class DalUserStore {
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
-
-    if (this.rootStore.dalAuthStore.isAuth) {
-      this.goToStep(ELoadStatus.Loading);
-    }
 
     makeAutoObservable(this);
   }
@@ -51,11 +50,9 @@ export class DalUserStore {
   };
 
   syncUserInfo = async () => {
-    console.log('sync');
     this.goToStep(ELoadStatus.Loading);
     try {
       const userInfo = await this.rootStore.API.get<IUserResponse>('/user');
-      console.log(userInfo);
       this.setUserInfo(userInfo.user);
       this.goToStep(ELoadStatus.Success);
       this.setIsRepeat(false);
