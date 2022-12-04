@@ -1,3 +1,4 @@
+import ResultsPage from 'pages/results';
 import React, { useLayoutEffect } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { rootStore } from 'dal/root-store';
@@ -60,6 +61,7 @@ function App() {
             <Route element={<ExercisesPage />} path="/exercises" />
             <Route element={<WorkoutListPage />} path="/workouts" />
             <Route element={<CreateWorkoutPage />} path="/workout/create" />
+            <Route element={<ResultsPage />} path="/results" />
 
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

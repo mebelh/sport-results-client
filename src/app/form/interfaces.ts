@@ -36,6 +36,16 @@ export type IFields<
   [key in keyof Fields]: Field<key, Fields[key]>;
 };
 
+export type TMultiFields<
+  Fields extends {
+    [key: string]: TValue | TValue[];
+  }
+> = {
+  [key in keyof Fields]: {
+    [index in number]: Field<key, Fields[key]>;
+  };
+};
+
 type TOnSuccess<
   Fields extends {
     [key: string]: TValue | TValue[];
@@ -67,4 +77,15 @@ export type TInitFieldsParams<
   }
 > = {
   [key in keyof Fields]: Omit<IInitFieldParams<key, Fields[key]>, 'name'>;
+};
+
+export type TInitMultiFieldsParams<
+  MultiFields extends {
+    [key: string]: TValue | TValue[];
+  }
+> = {
+  [key in keyof MultiFields]: Omit<
+    IInitFieldParams<key, MultiFields[key]>,
+    'name'
+  >;
 };

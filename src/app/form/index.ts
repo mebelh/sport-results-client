@@ -1,4 +1,5 @@
 import { Field } from 'app/form/field';
+import { MultiFieldsForm } from 'app/form/multiFields';
 import { FormEventHandler } from 'react';
 import { makeAutoObservable } from 'mobx';
 import {
@@ -6,22 +7,33 @@ import {
   TInitFieldsParams,
   IInitFieldsHooks,
   TValue,
+  TInitMultiFieldsParams,
 } from './interfaces';
 
 export class Form<
   Fields extends {
     [key: string]: TValue | TValue[];
+  },
+  MultiFieldsType extends {
+    [key: string]: TValue | TValue[];
   }
 > {
   fields: IFields<Fields>;
+
+  multiFields: MultiFieldsForm<MultiFieldsType>;
 
   private readonly hooks: IInitFieldsHooks<Fields>;
 
   isDirty: boolean;
 
-  constructor(fields: TInitFieldsParams<Fields>, hooks: Form<Fields>['hooks']) {
+  constructor(
+    fields: TInitFieldsParams<Fields>,
+    multiFields: TInitMultiFieldsParams<MultiFieldsType>,
+    hooks: Form<Fields, MultiFieldsType>['hooks']
+  ) {
     this.isDirty = false;
-    this.fields = getFields<Fields>(fields);
+    this.fields = getFields<Fields, MultiFieldsType>(fields);
+    this.multiFields = new MultiFieldsForm<MultiFieldsType>(multiFields);
     this.hooks = hooks;
 
     makeAutoObservable(this);
@@ -94,10 +106,13 @@ export class Form<
 const getFields = <
   Fields extends {
     [key: string]: TValue | TValue[];
+  },
+  MultiMultiFields extends {
+    [key: string]: TValue | TValue[];
   }
 >(
   initFieldsParams: TInitFieldsParams<Fields>
-): Form<Fields>['fields'] =>
+): Form<Fields, MultiMultiFields>['fields'] =>
   Object.keys(initFieldsParams).reduce(
     (acc, name) => ({
       ...acc,
@@ -107,4 +122,4 @@ const getFields = <
       }),
     }),
     {}
-  ) as Form<Fields>['fields'];
+  ) as Form<Fields, MultiMultiFields>['fields'];

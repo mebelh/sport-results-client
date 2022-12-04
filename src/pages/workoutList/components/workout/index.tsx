@@ -5,12 +5,12 @@ import Typography from 'components/typography';
 
 const Workout: React.FC<{
   workout: IWorkout;
-}> = ({ workout: { exercises, description, name } }) => (
+}> = ({ workout: { exercises, description, name, id } }) => (
   <div>
     <Typography.Text2>{name}</Typography.Text2>
-    <p>{description}</p>
+    <Typography.Text3>{description}</Typography.Text3>
     {exercises.map((exercise) => (
-      <Exercise exercise={exercise} key={exercise.id} />
+      <Exercise exercise={exercise} key={`${id} ${exercise.id}`} />
     ))}
   </div>
 );

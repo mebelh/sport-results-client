@@ -10,7 +10,9 @@ import { ExercisesStore } from 'pages/exercises/viewStore';
 import { RoutingStore } from 'app/routing/store';
 import { DalWorkoutStore } from 'dal/workout';
 import { CreateWorkoutStore } from 'pages/createWorkout/viewStore';
+import { ResultsStore } from 'pages/results/viewStore';
 import { WorkoutListPageStore } from 'pages/workoutList/viewStore';
+import { DalResultsStore } from './results';
 
 export class RootStore {
   dalUserStore: DalUserStore;
@@ -27,6 +29,8 @@ export class RootStore {
 
   dalWorkoutStore: DalWorkoutStore;
 
+  dalResultsStore: DalResultsStore;
+
   equipmentStore: EquipmentStore;
 
   exercisesStore: ExercisesStore;
@@ -34,6 +38,8 @@ export class RootStore {
   createWorkoutStore: CreateWorkoutStore;
 
   workoutListStore: WorkoutListPageStore;
+
+  resultsStore: ResultsStore;
 
   routing: RoutingStore;
 
@@ -52,6 +58,8 @@ export class RootStore {
     this.createWorkoutStore = new CreateWorkoutStore(this);
     this.workoutListStore = new WorkoutListPageStore(this);
     this.routing = new RoutingStore();
+    this.dalResultsStore = new DalResultsStore(this);
+    this.resultsStore = new ResultsStore(this);
   }
 }
 

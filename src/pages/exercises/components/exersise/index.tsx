@@ -14,7 +14,7 @@ const Exercise: React.FC<{
     <Typography.Text3>{exercise.name} </Typography.Text3>
     <EquipmentListWrapper>
       {exercise.equipment.map((equipment) => (
-        <EquipmentWrapper key={equipment.id}>
+        <EquipmentWrapper key={`${exercise.id}${equipment.id}`}>
           <Typography.Text4>{equipment.name}</Typography.Text4>
         </EquipmentWrapper>
       ))}
