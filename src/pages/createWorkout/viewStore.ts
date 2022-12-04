@@ -23,6 +23,7 @@ export class CreateWorkoutStore {
         initialValue: [],
       },
     },
+    {},
     {
       onSuccess: async (f) => {
         await this.rootStore.dalWorkoutStore.createWorkout(f);

@@ -19,6 +19,7 @@ export class EquipmentStore {
         initialValue: [],
       },
     },
+    {},
     {
       onSuccess: async (fields) => {
         await this.rootStore.dalEquipmentStore.createEquipment(fields);

@@ -16,7 +16,7 @@ export class Form<
   },
   MultiFieldsType extends {
     [key: string]: TValue | TValue[];
-  }
+  } = any
 > {
   fields: IFields<Fields>;
 

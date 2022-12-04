@@ -22,6 +22,7 @@ export class ExercisesStore {
         validate: [],
       },
     },
+    {},
     {
       onSuccess: async (f) => {
         await this.rootStore.dalExercisesStore.createExercise(f);

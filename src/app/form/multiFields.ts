@@ -23,9 +23,12 @@ const getMultiFields = <
   initMultiFieldsParams: TInitMultiFieldsParams<Fields>
 ): MultiFieldsForm<Fields>['fields'] =>
   Object.keys(initMultiFieldsParams).reduce(
-    (acc, key) => ({
+    (acc, key, index) => ({
       ...acc,
-      [key]: new Field(initMultiFieldsParams[key]),
+      [key]: new Field({
+        ...initMultiFieldsParams[key],
+        name: index,
+      }),
     }),
     {} as TMultiFields<Fields>
   );
