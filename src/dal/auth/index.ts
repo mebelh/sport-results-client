@@ -23,8 +23,8 @@ export class DalAuthStore {
     if (this.isAuth) {
       this.rootStore.dalUserStore.syncUserInfo();
     } else {
-      this.goToStep(ELoadStatus.Idle);
-      this.rootStore.dalUserStore.goToStep(ELoadStatus.Idle);
+      this.goToStep(ELoadStatus.Success);
+      this.rootStore.dalUserStore.goToStep(ELoadStatus.Success);
     }
   };
 

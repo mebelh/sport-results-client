@@ -3,6 +3,7 @@ import { IExercise } from 'dal/exercise/interfaces';
 export interface IResult {
   approaches: IApproach[];
   id: string;
+  date: string;
 }
 
 export interface IApproach {

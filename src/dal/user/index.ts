@@ -13,10 +13,7 @@ export class DalUserStore {
   private isRepeat = false;
 
   get isLoading(): boolean {
-    return (
-      (this.step === ELoadStatus.Loading && !this.isRepeat) ||
-      this.step === ELoadStatus.Idle
-    );
+    return (this.step === ELoadStatus.Loading && !this.isRepeat) || this.isIdle;
   }
 
   get isIdle(): boolean {

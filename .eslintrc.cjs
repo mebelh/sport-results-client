@@ -47,6 +47,7 @@ module.exports = {
     'no-bitwise': 'off',
     'jsx-a11y/click-events-have-key-events': 'off',
     'jsx-a11y/no-static-element-interactions': 'off',
+    'no-plusplus': 'off',
   },
   settings: {
     "import/extensions": [".js", ".jsx", ".ts", ".tsx"],
