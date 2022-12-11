@@ -9,6 +9,17 @@ import { formatDateTimeToFull } from 'utils/parseDate';
 const IMG_URL =
   'http://scalar.usc.edu/works/critical-internet-cat-studies/media/grumpycat_thumb.jpg';
 
+const items = [
+  <img src={IMG_URL} alt="" key="asd" />,
+  <img
+    src="https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png"
+    alt=""
+    key="asdasd"
+  />,
+  <img src={IMG_URL} alt="" key="asdxc" />,
+  <img src={IMG_URL} alt="" key="asddwq1" />,
+];
+
 const ResultsPage: React.FC = () => {
   const {
     dalResultsStore,
@@ -21,14 +32,7 @@ const ResultsPage: React.FC = () => {
     <>
       <NavigationBar title={<Typography.Text3>Результаты</Typography.Text3>} />
 
-      <Carousel
-        items={[
-          <img src={IMG_URL} alt="" key="asd" />,
-          <img src={IMG_URL} alt="" key="asdasd" />,
-          <img src={IMG_URL} alt="" key="asdxc" />,
-          <img src={IMG_URL} alt="" key="asddwq1" />,
-        ]}
-      />
+      <Carousel items={items} />
 
       {dalResultsStore.results.map((result, index) => (
         <div key={result.id}>

@@ -22,10 +22,14 @@ export const CarouselPaginationWrapper = styled.div`
   margin-top: 12px;
 `;
 
-export const CarouselItemsWrapper = styled.div`
+export const CarouselItemsWrapper = styled.div<{
+  height: number;
+}>`
   overflow: hidden;
   position: relative;
-  height: 200px;
+  height: ${({ height }) => `${height}px`};
+  transition: all ease 0.3s;
+  min-height: 100px;
 `;
 
 export const CarouselItems = styled.div<{
@@ -45,4 +49,5 @@ export const CarouselItem = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
+  height: min-content;
 `;

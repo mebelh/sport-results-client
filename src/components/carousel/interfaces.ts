@@ -1,5 +1,5 @@
 import React from 'react';
 
 export interface ICarouselProps {
-  items: React.ReactNode[];
+  items: React.ReactElement[];
 }

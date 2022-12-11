@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { ICarouselProps } from './interfaces';
 import {
   CarouselPaginationWrapper,
@@ -32,6 +32,12 @@ const Carousel: React.FC<ICarouselProps> = ({ items }) => {
   const carouselIdLocale = useMemo(() => `carousel-${carouselId++}`, []);
   const [currentItemNumber, setCurrentItemNumber] = useState(0);
 
+  const itemsRef = useRef<HTMLDivElement>(null);
+
+  const currentItem = itemsRef.current?.childNodes[
+    currentItemNumber
+  ] as HTMLDivElement;
+
   const handlePaginationClick = useCallback((index: number) => {
     setCurrentItemNumber(index);
   }, []);
@@ -49,8 +55,8 @@ const Carousel: React.FC<ICarouselProps> = ({ items }) => {
 
   return (
     <div>
-      <CarouselItemsWrapper>
-        <CarouselItems marginLeft={currentItemNumber}>
+      <CarouselItemsWrapper height={currentItem?.offsetHeight}>
+        <CarouselItems marginLeft={currentItemNumber} ref={itemsRef}>
           {items.map((item, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <CarouselItem key={`carouselItem-${carouselIdLocale}-${index}`}>
