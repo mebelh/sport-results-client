@@ -42,11 +42,11 @@ export class TrainingStore {
     {},
     {
       onSuccess: async (fields) => {
-        if (!this.workout) {
+        if (!this.training) {
           return;
         }
         const approach = await this.rootStore.dalResultsStore.addApproach({
-          result: this.workout?.id,
+          result: this.training?.id,
           ...fields,
         });
 
@@ -72,9 +72,10 @@ export class TrainingStore {
   }
 
   init = () => {
-    console.log(this.training);
     if (this.training) {
-      return () => {};
+      return () => {
+        console.log(this.training);
+      };
     }
 
     this.timerBeforeStart = false;
