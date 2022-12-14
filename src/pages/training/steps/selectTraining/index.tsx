@@ -1,6 +1,5 @@
 import Button from 'components/button';
 import Checkbox from 'components/checkbox';
-import Typography from 'components/typography';
 import { rootStore } from 'dal/root-store';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
@@ -8,7 +7,7 @@ import { WorkoutListWrapper } from './style';
 
 const SelectTrainingStep: React.FC = () => {
   const {
-    dalWorkoutStore: { workoutList },
+    dalWorkoutStore: { workoutList, isLoading },
     trainingStore: { selectWorkout, toggleImmediate, startImmediate },
   } = rootStore;
 
@@ -26,6 +25,8 @@ const SelectTrainingStep: React.FC = () => {
           />
         ))}
       </WorkoutListWrapper>
+
+      {isLoading && <div>Loading...</div>}
 
       <Checkbox
         title="Начать сразу"

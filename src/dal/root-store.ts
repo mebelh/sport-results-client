@@ -5,6 +5,7 @@ import { DalUserStore } from 'dal/user';
 import { DalUIStore } from 'dal/ui';
 import { DalEquipmentStore } from 'dal/equipment';
 import { DalExercisesStore } from 'dal/exercise';
+import { AuthStore } from 'pages/auth/viewStore';
 import { EquipmentStore } from 'pages/equipment/viewStore';
 import { ExercisesStore } from 'pages/exercises/viewStore';
 import { RoutingStore } from 'app/routing/store';
@@ -46,6 +47,8 @@ export class RootStore {
 
   trainingStore: TrainingStore;
 
+  authStore: AuthStore;
+
   constructor() {
     makeAutoObservable(this);
 
@@ -64,6 +67,7 @@ export class RootStore {
     this.dalResultsStore = new DalResultsStore(this);
     this.resultsStore = new ResultsStore(this);
     this.trainingStore = new TrainingStore(this);
+    this.authStore = new AuthStore(this);
   }
 }
 

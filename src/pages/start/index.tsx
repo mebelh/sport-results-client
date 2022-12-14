@@ -1,3 +1,4 @@
+import { ETrainingSteps } from 'pages/training/interfaces';
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { rootStore } from 'dal/root-store';
@@ -15,7 +16,7 @@ const StartPage: React.FC = () => {
         Привет {userInfo?.firstName || userInfo?.login}
       </Typography.Text3>
       <NavigationLinksWrapper>
-        <Link to="/training">
+        <Link to={`/training/${ETrainingSteps.SelectTraining}`}>
           <Button type="accent" text="Начать тренировку" />
         </Link>
         <Link to="/results">

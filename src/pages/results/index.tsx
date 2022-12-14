@@ -4,7 +4,8 @@ import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { rootStore } from 'dal/root-store';
 import Typography from 'components/typography';
-import { formatDateTimeToFull } from 'utils/parseDate';
+import { ResultsListWrapper } from './style';
+import Result from './components/result';
 
 const IMG_URL =
   'http://scalar.usc.edu/works/critical-internet-cat-studies/media/grumpycat_thumb.jpg';
@@ -34,20 +35,12 @@ const ResultsPage: React.FC = () => {
 
       <Carousel items={items} />
 
-      {dalResultsStore.results.map((result, index) => (
-        <div key={result.id}>
-          <Typography.Text4>
-            {index + 1}) {formatDateTimeToFull(result.date)}
-          </Typography.Text4>
-          {result.approaches.map((approach) => (
-            <div key={approach.id}>
-              <div>{approach.exercise.name}</div>
-              <div>Вес: {approach.weight}</div>
-              <div>Повторений: {approach.repetitionsNumber}</div>
-            </div>
-          ))}
-        </div>
-      ))}
+      <ResultsListWrapper>
+        {dalResultsStore.results.map((result) => (
+          <Result {...result} key={result.id} />
+        ))}
+      </ResultsListWrapper>
+
       {dalResultsStore.isLoading && (
         <Typography.Text4>Loading....</Typography.Text4>
       )}

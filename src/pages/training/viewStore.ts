@@ -14,8 +14,6 @@ export class TrainingStore {
 
   startImmediate = false;
 
-  step: ETrainingSteps;
-
   workout: IWorkout | null;
 
   timeToStart = INITIAL_TIME_TO_START;
@@ -50,8 +48,6 @@ export class TrainingStore {
           ...fields,
         });
 
-        console.log(this.training);
-
         this.training?.approaches.push(approach);
 
         this.goToTraining();
@@ -65,7 +61,6 @@ export class TrainingStore {
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
-    this.step = ETrainingSteps.SelectTraining;
     this.workout = null;
 
     makeAutoObservable(this);
@@ -101,6 +96,10 @@ export class TrainingStore {
     this.clearTimeToStartInterval();
   }
 
+  initTrainingStep = () => () => {
+    this.resetData();
+  };
+
   clearTimeToStartInterval = () => {
     if (this.interval) {
       clearInterval(this.interval);
@@ -108,15 +107,21 @@ export class TrainingStore {
   };
 
   goToSelectTraining = () => {
-    this.step = ETrainingSteps.SelectTraining;
+    this.rootStore.routing.push(`/training/${ETrainingSteps.SelectTraining}`);
   };
 
   goToCreateApproach = () => {
-    this.step = ETrainingSteps.AddApproach;
+    this.rootStore.routing.push(`/training/work/${ETrainingSteps.AddApproach}`);
+  };
+
+  goToApproaches = () => {
+    this.rootStore.routing.push(
+      `/training/work/${ETrainingSteps.ApproachesList}`
+    );
   };
 
   private async goToTraining() {
-    this.step = ETrainingSteps.Training;
+    this.goToApproaches();
     if (!this.workout || this.training) {
       return;
     }
@@ -126,7 +131,7 @@ export class TrainingStore {
   }
 
   private goToBeforeStart() {
-    this.step = ETrainingSteps.BeforeStart;
+    this.rootStore.routing.push(`/training/${ETrainingSteps.BeforeStart}`);
   }
 
   startWorkout = () => {

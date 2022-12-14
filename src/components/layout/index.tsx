@@ -8,7 +8,6 @@ import {
   MdOutlineSettings,
 } from 'react-icons/all';
 import getColor from 'utils/getColor';
-import { useSyncNavigation } from 'app/routing/store';
 import {
   MenuWrapper,
   Wrapper,
@@ -20,8 +19,6 @@ import { IProps } from './interfaces';
 
 function Layout({ children }: IProps): React.ReactElement {
   const { isShowMenu, toggleShowMenu } = rootStore.dalUIStore;
-
-  useSyncNavigation();
 
   return (
     <Wrapper>

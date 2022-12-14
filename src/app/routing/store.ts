@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx';
-import { redirect, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 let navigation: ReturnType<typeof useNavigate> | null = null;
@@ -13,8 +13,6 @@ export const useSyncNavigation = () => {
 };
 
 export class RoutingStore {
-  private redirect = redirect;
-
   constructor() {
     makeAutoObservable(this);
   }
@@ -33,6 +31,6 @@ export class RoutingStore {
 
   push = (url: string) => {
     this.check();
-    this.redirect(url);
+    navigation?.(url);
   };
 }

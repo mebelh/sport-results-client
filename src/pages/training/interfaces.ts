@@ -1,10 +1,10 @@
 import React from 'react';
 
 export enum ETrainingSteps {
-  SelectTraining = 'SelectTraining',
-  BeforeStart = 'BeforeStart',
-  Training = 'Training',
-  AddApproach = 'AddApproach',
+  SelectTraining = 'selectTraining',
+  BeforeStart = 'beforeStart',
+  ApproachesList = 'approaches',
+  AddApproach = 'addApproach',
 }
 
 export type TTrainingSteps = {

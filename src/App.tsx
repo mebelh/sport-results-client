@@ -1,7 +1,17 @@
+import { useSyncNavigation } from 'app/routing/store';
+import { EAuthStep } from 'pages/auth/interfaces';
+import InputPhoneStep from 'pages/auth/steps/inputPhone';
+import VerifyCodeStep from 'pages/auth/steps/verifyCode';
 import ResultsPage from 'pages/results';
 import TrainingPage from 'pages/training';
+import { ETrainingSteps } from 'pages/training/interfaces';
+import AddApproachStep from 'pages/training/steps/addApproach';
+import ApproachesList from 'pages/training/steps/approachesList';
+import BeforeStartStep from 'pages/training/steps/beforeStart';
+import SelectTrainingStep from 'pages/training/steps/selectTraining';
+import TrainingStep from 'pages/training/steps/training';
 import React, { useEffect } from 'react';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { rootStore } from 'dal/root-store';
 import AuthPage from 'pages/auth';
 import { observer } from 'mobx-react-lite';
@@ -30,6 +40,7 @@ function App() {
   const { toggleTheme } = rootStore.dalUIStore;
 
   useEffect(init, []);
+  useSyncNavigation();
 
   if (isLoading) {
     return <LogoLoader fullscreen />;
@@ -39,35 +50,57 @@ function App() {
     return (
       <AppWrapper>
         <Button onClick={toggleTheme} type="primary" text="Тема" />
-        <BrowserRouter>
-          <Routes>
-            <Route element={<AuthPage />} path="/auth" />
-            <Route path="*" element={<Navigate to="/auth" replace />} />
-          </Routes>
-        </BrowserRouter>
+        <Routes>
+          <Route element={<AuthPage />} path="/auth/*">
+            <Route element={<InputPhoneStep />} path={EAuthStep.inputPhone} />
+            <Route element={<VerifyCodeStep />} path={EAuthStep.verifyCode} />
+          </Route>
+          <Route
+            path="*"
+            element={<Navigate to="/auth/sendVerifyCode" replace />}
+          />
+        </Routes>
       </AppWrapper>
     );
   }
 
   return (
     <AppWrapper>
-      <BrowserRouter>
-        <Layout>
-          <Routes>
-            <Route element={<StartPage />} path="/" />
-            <Route element={<SettingsPage />} path="/settings" />
-            <Route element={<EquipmentPage />} path="/equipment" />
-            <Route element={<CreateExercisePage />} path="/exercises/create" />
-            <Route element={<ExercisesPage />} path="/exercises" />
-            <Route element={<WorkoutListPage />} path="/workouts" />
-            <Route element={<CreateWorkoutPage />} path="/workout/create" />
-            <Route element={<ResultsPage />} path="/results" />
-            <Route element={<TrainingPage />} path="/training" />
+      <Layout>
+        <Routes>
+          <Route element={<StartPage />} path="/" />
+          <Route element={<SettingsPage />} path="/settings" />
+          <Route element={<EquipmentPage />} path="/equipment" />
+          <Route element={<CreateExercisePage />} path="/exercises/create" />
+          <Route element={<ExercisesPage />} path="/exercises" />
+          <Route element={<WorkoutListPage />} path="/workouts" />
+          <Route element={<CreateWorkoutPage />} path="/workout/create" />
+          <Route element={<ResultsPage />} path="/results" />
+          <Route element={<TrainingPage />} path="/training/*">
+            <Route
+              path={`${ETrainingSteps.BeforeStart}`}
+              element={<BeforeStartStep />}
+            />
+            <Route
+              path={`${ETrainingSteps.SelectTraining}`}
+              element={<SelectTrainingStep />}
+            />
 
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </Layout>
-      </BrowserRouter>
+            <Route path="work/" element={<TrainingStep />}>
+              <Route
+                path={ETrainingSteps.ApproachesList}
+                element={<ApproachesList />}
+              />
+              <Route
+                path={ETrainingSteps.AddApproach}
+                element={<AddApproachStep />}
+              />
+            </Route>
+          </Route>
+
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Layout>
     </AppWrapper>
   );
 }

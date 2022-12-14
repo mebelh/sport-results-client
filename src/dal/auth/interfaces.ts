@@ -1,4 +1,4 @@
 export interface IAuthParams {
-  login: string;
-  password: string;
+  phone: number;
+  code: string;
 }

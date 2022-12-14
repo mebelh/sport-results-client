@@ -20,14 +20,22 @@ export class DalWorkoutStore {
     this.workoutList = list;
   }
 
-  async syncWorkouts() {
+  private startLoading() {
     this.isLoading = true;
+  }
+
+  private stopLoading() {
+    this.isLoading = false;
+  }
+
+  async syncWorkouts() {
+    this.startLoading();
 
     const list = await this.rootStore.API.get<IWorkout[]>('/workout');
 
     this.setWorkoutList(list);
 
-    this.isLoading = false;
+    this.stopLoading();
   }
 
   createWorkout(createWorkoutDto: TCreateWorkoutDto): Promise<IWorkout> {

@@ -57,25 +57,41 @@ export class DalAuthStore {
     this.goToStep(ELoadStatus.Idle);
   };
 
-  async login(login: string, password: string) {
+  async login(phone: number, code: string) {
     try {
       this.goToStep(ELoadStatus.Loading);
       const { token, user } = await this.rootStore.API.post<
         ILoginResponse,
         IAuthParams
       >('auth/login', {
-        login,
-        password,
+        phone,
+        code,
       });
 
       this.rootStore.dalUserStore.setUserInfo(user);
       this.setToken(token);
       this.goToStep(ELoadStatus.Success);
     } catch (e: any) {
-      console.log(e);
+      console.warn(e);
       this.goToStep(ELoadStatus.Error);
+      throw e;
     }
   }
+
+  sendVerifyCode = async (phone: number): Promise<void> => {
+    try {
+      await this.rootStore.API.post<
+        never,
+        {
+          phone: number;
+        }
+      >('/auth/sendVerifyCode', {
+        phone,
+      });
+    } catch (e: any) {
+      console.log(e);
+    }
+  };
 
   logout = () => {
     this.resetData();

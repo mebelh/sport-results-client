@@ -1,5 +1,4 @@
 import { TValidateFn, TValue } from 'app/form/interfaces';
-import { throws } from 'assert';
 
 export const isEmail: TValidateFn = (errorText) => (value) => {
   if (
@@ -58,3 +57,12 @@ export const isLengthMoreThen: TValidateFn<string | TValue[], true> =
 
     throw errorText || `Количество должно быть больше ${compression}`;
   };
+
+export const isPhone: TValidateFn<number> = (errorText) => (value) => {
+  console.log(value);
+  if (!value?.toString().match(/(^89)((\s\(\d{3}\)\s\d{3}\s\d{2}\s\d{2}))/)) {
+    return true;
+  }
+
+  throw errorText || 'Неверный формат телефона';
+};
