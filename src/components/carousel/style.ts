@@ -41,7 +41,7 @@ export const CarouselItems = styled.div<{
   display: flex;
   column-gap: 16px;
   flex-wrap: nowrap;
-  transition: 0.2s all linear;
+  transition: 0.1s all linear;
   margin-left: ${({ currentItemNumber }) =>
     `-${currentItemNumber * browserWidth}px`};
   transform: ${({ translateX }) => `translateX(${-translateX}px)`};

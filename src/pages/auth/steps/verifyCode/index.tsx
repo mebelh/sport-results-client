@@ -3,11 +3,12 @@ import Input from 'components/input';
 import { rootStore } from 'dal/root-store';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { StepsForm } from '../../style';
 
 const VerifyCodeStep = () => {
   const { verifyCodeForm } = rootStore.authStore;
   return (
-    <form onSubmit={verifyCodeForm.onSubmit}>
+    <StepsForm onSubmit={verifyCodeForm.onSubmit}>
       <Input
         title="Код подтверждения"
         placeholder="****"
@@ -15,7 +16,7 @@ const VerifyCodeStep = () => {
         type="string"
       />
       <Button type="accent" text="Отправить" />
-    </form>
+    </StepsForm>
   );
 };
 
