@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import {
   TOnDragEnd,
   TOnDragMove,
@@ -37,7 +37,9 @@ const Carousel: React.FC<ICarouselProps> = ({ items }) => {
   const { length } = items;
   const carouselIdLocale = useMemo(() => `carousel-${carouselId++}`, []);
   const [currentItemNumber, setCurrentItemNumber] = useState(0);
+  const currentItemNumberRef = useRef(0);
   const [translateX, setTranslateX] = useState(0);
+  const translateXStart = useRef(0);
 
   const itemsRef = useRef<HTMLDivElement>(null);
   const itemsWrapperRef = useRef<HTMLDivElement>(null);
@@ -46,29 +48,37 @@ const Carousel: React.FC<ICarouselProps> = ({ items }) => {
     currentItemNumber
   ] as HTMLDivElement;
 
-  const handlePaginationClick = useCallback((index: number) => {
+  const handlePaginationClick = (index: number) => {
     setCurrentItemNumber(index);
-  }, []);
+  };
 
-  const handleTouchMove: TOnDragMove = useCallback((clientX, prevClientX) => {
-    setTranslateX(prevClientX - clientX);
-  }, []);
+  const handleTouchMove: TOnDragMove = (clientX) => {
+    setTranslateX(translateXStart.current - clientX);
+  };
 
-  const handleTouchEnd: TOnDragEnd = useCallback((clientX, prevClientX) => {
-    if (prevClientX - clientX > 70) {
+  const handleTouchEnd: TOnDragEnd = (clientX) => {
+    if (
+      translateXStart.current - clientX > 70 &&
+      currentItemNumberRef.current < length - 2
+    ) {
       setCurrentItemNumber((c) => c + 1);
+      currentItemNumberRef.current++;
     }
 
-    if (prevClientX - clientX < -70) {
+    if (
+      translateXStart.current - clientX < -70 &&
+      currentItemNumberRef.current > 0
+    ) {
       setCurrentItemNumber((c) => c - 1);
+      currentItemNumberRef.current--;
     }
 
     setTranslateX(0);
-  }, []);
+  };
 
-  const handleTouchStart: TOnDragStart = useCallback((clientX) => {
-    setTranslateX(clientX);
-  }, []);
+  const handleTouchStart: TOnDragStart = (clientX) => {
+    translateXStart.current = clientX;
+  };
 
   const paginationItems = useMemo(
     () =>
