@@ -1,5 +1,10 @@
-import { browserWidth } from 'components/carousel/utils';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
+import {
+  TOnDragEnd,
+  TOnDragMove,
+  TOnDragStart,
+  useDrag,
+} from 'utils/hooks/useDrag';
 import { ICarouselProps } from './interfaces';
 import {
   CarouselPaginationWrapper,
@@ -33,7 +38,6 @@ const Carousel: React.FC<ICarouselProps> = ({ items }) => {
   const carouselIdLocale = useMemo(() => `carousel-${carouselId++}`, []);
   const [currentItemNumber, setCurrentItemNumber] = useState(0);
   const [translateX, setTranslateX] = useState(0);
-  const [translateXStart, setTranslateXStart] = useState(0);
 
   const itemsRef = useRef<HTMLDivElement>(null);
   const itemsWrapperRef = useRef<HTMLDivElement>(null);
@@ -46,31 +50,24 @@ const Carousel: React.FC<ICarouselProps> = ({ items }) => {
     setCurrentItemNumber(index);
   }, []);
 
-  const handleTouchMove: React.TouchEventHandler<HTMLDivElement> = useCallback(
-    (e) => {
-      const { clientX } = e.targetTouches[0];
+  const handleTouchMove: TOnDragMove = useCallback((clientX, prevClientX) => {
+    setTranslateX(prevClientX - clientX);
+  }, []);
 
-      setTranslateX(() => clientX);
-    },
-    [translateXStart, currentItemNumber]
-  );
-
-  const handleTouchEnd: React.TouchEventHandler = useCallback(() => {
-    if (translateXStart - translateX > 70) {
+  const handleTouchEnd: TOnDragEnd = useCallback((clientX, prevClientX) => {
+    if (prevClientX - clientX > 70) {
       setCurrentItemNumber((c) => c + 1);
     }
 
-    if (translateXStart - translateX < -70) {
+    if (prevClientX - clientX < -70) {
       setCurrentItemNumber((c) => c - 1);
     }
 
     setTranslateX(0);
-    setTranslateXStart(0);
-  }, [translateXStart, translateX]);
+  }, []);
 
-  const handleTouchStart: React.TouchEventHandler = useCallback((e) => {
-    setTranslateXStart(() => e.targetTouches[0].clientX);
-    setTranslateX(() => e.targetTouches[0].clientX);
+  const handleTouchStart: TOnDragStart = useCallback((clientX) => {
+    setTranslateX(clientX);
   }, []);
 
   const paginationItems = useMemo(
@@ -84,6 +81,13 @@ const Carousel: React.FC<ICarouselProps> = ({ items }) => {
     [currentItemNumber]
   );
 
+  useDrag({
+    ref: itemsRef,
+    onDragStart: handleTouchStart,
+    onDragMove: handleTouchMove,
+    onDragEnd: handleTouchEnd,
+  });
+
   return (
     <div>
       <CarouselItemsWrapper
@@ -91,12 +95,9 @@ const Carousel: React.FC<ICarouselProps> = ({ items }) => {
         ref={itemsWrapperRef}
       >
         <CarouselItems
-          translateX={translateXStart - translateX}
+          translateX={translateX}
           currentItemNumber={currentItemNumber}
           ref={itemsRef}
-          onTouchEnd={handleTouchEnd}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
         >
           {items.map((item, index) => (
             // eslint-disable-next-line react/no-array-index-key
