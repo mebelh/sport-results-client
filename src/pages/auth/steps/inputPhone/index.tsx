@@ -6,7 +6,7 @@ import React from 'react';
 import { StepsForm } from '../../style';
 
 const InputPhoneStep: React.FC = () => {
-  const { inputPhoneForm } = rootStore.authStore;
+  const { inputPhoneForm, isLoading } = rootStore.authStore;
   return (
     <StepsForm onSubmit={inputPhoneForm.onSubmit}>
       <Input
@@ -15,7 +15,7 @@ const InputPhoneStep: React.FC = () => {
         type="number"
         placeholder="89** *** ** **"
       />
-      <Button type="primary" text="Отправить код" />
+      <Button type="primary" text="Отправить код" isDisabled={isLoading} />
     </StepsForm>
   );
 };

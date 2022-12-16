@@ -1,8 +1,8 @@
-import { makeAutoObservable } from 'mobx';
-import { RootStore } from 'dal/root-store';
 import { IAuthParams } from 'dal/auth/interfaces';
 import { ELoadStatus } from 'dal/interfaces';
+import { RootStore } from 'dal/root-store';
 import { ILoginResponse } from 'dal/user/interfaces';
+import { makeAutoObservable } from 'mobx';
 import { AUTH_KEY, cache } from 'utils/cache';
 
 export class DalAuthStore {
@@ -59,7 +59,6 @@ export class DalAuthStore {
 
   async login(phone: number, code: string) {
     try {
-      this.goToStep(ELoadStatus.Loading);
       const { token, user } = await this.rootStore.API.post<
         ILoginResponse,
         IAuthParams
@@ -70,10 +69,8 @@ export class DalAuthStore {
 
       this.rootStore.dalUserStore.setUserInfo(user);
       this.setToken(token);
-      this.goToStep(ELoadStatus.Success);
     } catch (e: any) {
       console.warn(e);
-      this.goToStep(ELoadStatus.Error);
       throw e;
     }
   }
@@ -90,6 +87,7 @@ export class DalAuthStore {
       });
     } catch (e: any) {
       console.log(e);
+      throw e;
     }
   };
 

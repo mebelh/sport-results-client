@@ -10,6 +10,8 @@ export class AuthStore {
 
   step: EAuthStep = EAuthStep.inputPhone;
 
+  isLoading = false;
+
   phone: number;
 
   inputPhoneForm = new Form<{
@@ -24,7 +26,9 @@ export class AuthStore {
     {},
     {
       onSuccess: async ({ phone }) => {
+        this.isLoading = true;
         await this.rootStore.dalAuthStore.sendVerifyCode(phone);
+        this.isLoading = false;
         this.phone = phone;
         this.goToVerifyCode();
       },
@@ -43,6 +47,7 @@ export class AuthStore {
     {},
     {
       onSuccess: async ({ code }) => {
+        this.isLoading = true;
         try {
           await this.rootStore.dalAuthStore.login(this.phone, code);
         } catch (e) {
@@ -50,6 +55,7 @@ export class AuthStore {
             title: 'Неверный код',
           });
         }
+        this.isLoading = false;
       },
     }
   );

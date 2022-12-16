@@ -6,7 +6,7 @@ import React from 'react';
 import { StepsForm } from '../../style';
 
 const VerifyCodeStep = () => {
-  const { verifyCodeForm } = rootStore.authStore;
+  const { verifyCodeForm, isLoading } = rootStore.authStore;
   return (
     <StepsForm onSubmit={verifyCodeForm.onSubmit}>
       <Input
@@ -15,7 +15,7 @@ const VerifyCodeStep = () => {
         {...verifyCodeForm.fields.code.inputProps}
         type="string"
       />
-      <Button type="accent" text="Отправить" />
+      <Button type="accent" text="Отправить" isDisabled={isLoading} />
     </StepsForm>
   );
 };
