@@ -1,5 +1,6 @@
 import Carousel from 'components/carousel';
 import NavigationBar from 'components/navigationBar';
+import PieChart from 'components/pieChart';
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { rootStore } from 'dal/root-store';
@@ -32,15 +33,20 @@ const ResultsPage: React.FC = () => {
   return (
     <>
       <NavigationBar title={<Typography.Text3>Результаты</Typography.Text3>} />
-
       <Carousel items={items} />
-
+      <PieChart
+        data={[
+          { fill: 'tomato', percent: 40 },
+          { fill: 'green', percent: 20 },
+          { fill: 'orange', percent: 25 },
+          { fill: 'black', percent: 15 },
+        ]}
+      />
       <ResultsListWrapper>
         {dalResultsStore.results.map((result) => (
           <Result {...result} key={result.id} />
         ))}
       </ResultsListWrapper>
-
       {dalResultsStore.isLoading && (
         <Typography.Text4>Loading....</Typography.Text4>
       )}

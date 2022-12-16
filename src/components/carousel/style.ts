@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import getColor from 'utils/getColor';
+import { browserWidth } from './utils';
 
 export const CarouselPaginationItem = styled.span<{
   isActive?: boolean;
@@ -33,18 +34,21 @@ export const CarouselItemsWrapper = styled.div<{
 `;
 
 export const CarouselItems = styled.div<{
-  marginLeft: number;
+  translateX: number;
+  currentItemNumber: number;
 }>`
   position: absolute;
   display: flex;
   column-gap: 16px;
   flex-wrap: nowrap;
   transition: 0.2s all linear;
-  left: ${({ marginLeft }) => `calc(${marginLeft} * -100vw)`};
+  margin-left: ${({ currentItemNumber }) =>
+    `-${currentItemNumber * browserWidth}px`};
+  transform: ${({ translateX }) => `translateX(${-translateX}px)`};
 `;
 
 export const CarouselItem = styled.span`
-  width: calc(100vw - 8px);
+  width: calc(100vw - 16px);
   padding: 0 8px;
   display: flex;
   align-items: center;
