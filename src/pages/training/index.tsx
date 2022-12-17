@@ -2,9 +2,10 @@ import NavigationBar from 'components/navigationBar';
 import Typography from 'components/typography';
 import { rootStore } from 'dal/root-store';
 import { observer } from 'mobx-react-lite';
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Outlet, useParams } from 'react-router-dom';
 import { ETrainingSteps, TTrainingSteps } from './interfaces';
+import { EndWorkoutButton } from './style';
 
 const titles: Record<keyof TTrainingSteps, string> = {
   [ETrainingSteps.SelectTraining]: 'Выберите тренировку',
@@ -14,36 +15,16 @@ const titles: Record<keyof TTrainingSteps, string> = {
 };
 
 const TrainingPage: React.FC = () => {
-  const { init, goToSelectTraining, goToApproaches, clearTimeToStartInterval } =
-    rootStore.trainingStore;
-  const { goBack } = rootStore.routing;
+  const { init, goBack, endWorkout } = rootStore.trainingStore;
   const { step } = useParams<{
     step: ETrainingSteps;
   }>();
 
   useEffect(init, []);
 
-  const handleGoBack = useCallback(() => {
-    switch (step) {
-      case ETrainingSteps.ApproachesList:
-        goToSelectTraining();
-        break;
-      case ETrainingSteps.BeforeStart:
-        clearTimeToStartInterval();
-        goToSelectTraining();
-        break;
-      case ETrainingSteps.AddApproach:
-        goToApproaches();
-        break;
-      default:
-        goBack();
-    }
-  }, [step]);
-
   return (
-    <>
-      <NavigationBar goBackHandler={handleGoBack} />
-
+    <div>
+      <NavigationBar goBackHandler={goBack} />
       <Typography.Text2
         centered
         style={{
@@ -52,9 +33,14 @@ const TrainingPage: React.FC = () => {
       >
         {step && titles[step]}
       </Typography.Text2>
-
       <Outlet />
-    </>
+
+      <EndWorkoutButton
+        type="danger"
+        onClick={endWorkout}
+        text="Завершить тренировку"
+      />
+    </div>
   );
 };
 

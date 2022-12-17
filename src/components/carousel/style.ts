@@ -5,14 +5,25 @@ import { browserWidth } from './utils';
 export const CarouselPaginationItem = styled.span<{
   isActive?: boolean;
 }>`
+  position: relative;
   width: ${({ isActive }) => (isActive ? '30px' : '16px')};
-  height: 10px;
+  height: 8px;
   border-radius: 50px;
-  transition: 0.15s all linear;
-  background-color: ${({ isActive }) =>
-    isActive
-      ? getColor('background', 'accent')
-      : getColor('lightGray', 'primary')};
+  transition: 0.18s all linear;
+  background-color: ${getColor('lightGray', 'primary')};
+
+  &::before {
+    border-radius: 50px;
+    transition: 0.4s all linear;
+    content: '';
+    position: absolute;
+    background-color: ${({ isActive }) =>
+      isActive
+        ? getColor('background', 'accent')
+        : getColor('lightGray', 'primary')};
+    width: ${({ isActive }) => (isActive ? '30px' : '0')};
+    height: 8px;
+  }
 `;
 
 export const CarouselPaginationWrapper = styled.div`

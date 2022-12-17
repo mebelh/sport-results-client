@@ -10,12 +10,14 @@ const Button: React.FC<IProps> = ({
   text,
   iconPosition = 'left',
   isDisabled,
+  className,
 }) => (
   <ButtonWrapper
     buttonType={type}
     type="submit"
     onClick={isDisabled ? undefined : onClick}
     isDisabled={isDisabled}
+    className={className}
   >
     {iconPosition === 'left' && icon}
     {text && <Typography.Text3>{text}</Typography.Text3>}

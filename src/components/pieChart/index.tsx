@@ -34,8 +34,8 @@ const PieChart: React.FC<PieChartProps> = ({ data }) => {
   return (
     <div
       style={{
-        width: 300,
-        height: 300,
+        width: 200,
+        height: 200,
       }}
     >
       <svg viewBox="0 0 40 40" width={200} height={200}>

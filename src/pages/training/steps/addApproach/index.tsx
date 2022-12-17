@@ -6,10 +6,10 @@ import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 
 const AddApproachStep: React.FC = () => {
-  const { workout, addApproachForm, resetApproachForm } =
+  const { workout, addApproachForm, initApproachStep } =
     rootStore.trainingStore;
 
-  useEffect(() => resetApproachForm, []);
+  useEffect(initApproachStep, []);
 
   if (!workout) {
     return <>Error!</>;

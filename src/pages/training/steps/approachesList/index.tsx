@@ -1,11 +1,14 @@
 import Typography from 'components/typography';
 import { rootStore } from 'dal/root-store';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ApproachesListWrapper, Button } from './style';
 
 const ApproachesList: React.FC = () => {
-  const { workout, training, goToCreateApproach } = rootStore.trainingStore;
+  const { workout, training, goToCreateApproach, initApproachesListStep } =
+    rootStore.trainingStore;
+
+  useEffect(initApproachesListStep, []);
 
   return (
     <div>

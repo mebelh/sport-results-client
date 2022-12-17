@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { disableTouchScroll, enableTouchScroll } from 'utils/disableScroll';
+import { useEvent } from 'utils/hooks/useEvent';
 
 export type TOnDragStart = (clientX: number) => void;
 export type TOnDragMove = (clientX: number, prevClientX: number) => void;
@@ -20,27 +21,29 @@ export function useDrag({
 }: IDragProps) {
   const prevClientX = useRef(0);
 
-  const handlePointerMove = (e: HTMLElementEventMap['pointermove']) => {
-    onDragMove?.(e.clientX, prevClientX.current);
-    prevClientX.current = e.clientX;
-  };
+  const handlePointerMove = useEvent(
+    (e: HTMLElementEventMap['pointermove']) => {
+      onDragMove?.(e.clientX, prevClientX.current);
+      prevClientX.current = e.clientX;
+    }
+  );
 
-  const handlePointerUp = (e: HTMLElementEventMap['pointermove']) => {
+  const handlePointerUp = useEvent((e: HTMLElementEventMap['pointermove']) => {
     ref.current?.removeEventListener('pointermove', handlePointerMove);
     onDragEnd?.(e.clientX, prevClientX.current);
     enableTouchScroll();
-  };
+  });
 
-  const handlePointerDown = ({
-    clientX,
-  }: HTMLElementEventMap['pointerdown']) => {
-    onDragStart?.(clientX);
-    disableTouchScroll();
+  const handlePointerDown = useEvent(
+    ({ clientX }: HTMLElementEventMap['pointerdown']) => {
+      onDragStart?.(clientX);
+      disableTouchScroll();
 
-    ref.current?.addEventListener('pointermove', handlePointerMove);
+      ref.current?.addEventListener('pointermove', handlePointerMove);
 
-    ref.current?.addEventListener('pointerup', handlePointerUp);
-  };
+      ref.current?.addEventListener('pointerup', handlePointerUp);
+    }
+  );
 
   useEffect(() => {
     if (!ref.current) {

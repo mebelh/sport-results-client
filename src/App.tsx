@@ -3,6 +3,7 @@ import { EAuthStep } from 'pages/auth/interfaces';
 import InputPhoneStep from 'pages/auth/steps/inputPhone';
 import VerifyCodeStep from 'pages/auth/steps/verifyCode';
 import ResultsPage from 'pages/results';
+import ResultsTrainingList from 'pages/results/viewVariants/trainingList';
 import TrainingPage from 'pages/training';
 import { ETrainingSteps } from 'pages/training/interfaces';
 import AddApproachStep from 'pages/training/steps/addApproach';
@@ -75,8 +76,24 @@ function App() {
           <Route element={<ExercisesPage />} path="/exercises" />
           <Route element={<WorkoutListPage />} path="/workouts" />
           <Route element={<CreateWorkoutPage />} path="/workout/create" />
-          <Route element={<ResultsPage />} path="/results" />
+          <Route element={<ResultsPage />} path="/results/*">
+            <Route
+              path="*"
+              element={<Navigate to="/results/resultsList" replace />}
+            />
+            <Route element={<ResultsTrainingList />} path="resultsList" />
+            <Route element={<ResultsTrainingList />} path="exerciseProgress" />
+          </Route>
           <Route element={<TrainingPage />} path="/training/*">
+            <Route
+              path="*"
+              element={
+                <Navigate
+                  to={`/training/${ETrainingSteps.SelectTraining}`}
+                  replace
+                />
+              }
+            />
             <Route
               path={`${ETrainingSteps.BeforeStart}`}
               element={<BeforeStartStep />}

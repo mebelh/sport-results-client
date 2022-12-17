@@ -4,8 +4,8 @@ import { ICreateApproachDto, IResult } from 'dal/results/interfaces';
 import { RootStore } from 'dal/root-store';
 import { IWorkout } from 'dal/workout/interfaces';
 import { makeAutoObservable } from 'mobx';
-import { ETrainingSteps } from './interfaces';
 import { INITIAL_TIME_TO_START } from './constants';
+import { ETrainingSteps } from './interfaces';
 
 export class TrainingStore {
   private readonly rootStore: RootStore;
@@ -19,6 +19,8 @@ export class TrainingStore {
   timeToStart = INITIAL_TIME_TO_START;
 
   timerBeforeStart = false;
+
+  private step: ETrainingSteps = ETrainingSteps.SelectTraining;
 
   addApproachForm = new Form<Omit<ICreateApproachDto, 'result'>>(
     {
@@ -50,7 +52,7 @@ export class TrainingStore {
 
         this.training?.approaches.push(approach);
 
-        this.goToTraining();
+        await this.goToTraining();
       },
     }
   );
@@ -68,9 +70,9 @@ export class TrainingStore {
 
   init = () => {
     if (this.training) {
-      return () => {
-        console.log(this.training);
-      };
+      // TODO fix this!!!
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      return () => {};
     }
 
     this.timerBeforeStart = false;
@@ -100,24 +102,55 @@ export class TrainingStore {
     this.resetData();
   };
 
-  clearTimeToStartInterval = () => {
+  public initApproachesListStep = () => {
+    if (!this.workout) {
+      this.goToSelectTraining();
+    }
+  };
+
+  private clearTimeToStartInterval = () => {
     if (this.interval) {
       clearInterval(this.interval);
     }
   };
 
-  goToSelectTraining = () => {
+  private goToSelectTraining = () => {
+    this.step = ETrainingSteps.SelectTraining;
     this.rootStore.routing.push(`/training/${ETrainingSteps.SelectTraining}`);
   };
 
   goToCreateApproach = () => {
+    this.step = ETrainingSteps.AddApproach;
     this.rootStore.routing.push(`/training/work/${ETrainingSteps.AddApproach}`);
   };
 
-  goToApproaches = () => {
+  private goToApproaches = () => {
+    this.step = ETrainingSteps.ApproachesList;
     this.rootStore.routing.push(
       `/training/work/${ETrainingSteps.ApproachesList}`
     );
+  };
+
+  private goToBeforeStart() {
+    this.step = ETrainingSteps.BeforeStart;
+    this.rootStore.routing.push(`/training/${ETrainingSteps.BeforeStart}`);
+  }
+
+  goBack = () => {
+    switch (this.step) {
+      case ETrainingSteps.ApproachesList:
+        this.goToSelectTraining();
+        break;
+      case ETrainingSteps.BeforeStart:
+        this.clearTimeToStartInterval();
+        this.goToSelectTraining();
+        break;
+      case ETrainingSteps.AddApproach:
+        this.goToApproaches();
+        break;
+      default:
+        this.rootStore.routing.goBack();
+    }
   };
 
   private async goToTraining() {
@@ -128,10 +161,6 @@ export class TrainingStore {
     this.training = await this.rootStore.dalResultsStore.createResult({
       workoutId: this.workout?.id,
     });
-  }
-
-  private goToBeforeStart() {
-    this.rootStore.routing.push(`/training/${ETrainingSteps.BeforeStart}`);
   }
 
   startWorkout = () => {
@@ -165,7 +194,26 @@ export class TrainingStore {
     this.startImmediate = !this.startImmediate;
   };
 
-  resetApproachForm = () => {
+  private resetApproachForm = () => {
     this.addApproachForm.reset();
+  };
+
+  initApproachStep = () => {
+    if (!this.workout) {
+      this.goToSelectTraining();
+    }
+
+    this.addApproachForm.setValue(
+      'exercise',
+      this.workout?.exercises[0].id || ''
+    );
+
+    return () => {
+      this.resetApproachForm();
+    };
+  };
+
+  endWorkout = () => {
+    this.rootStore.routing.push('/results');
   };
 }

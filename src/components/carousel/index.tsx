@@ -59,7 +59,7 @@ const Carousel: React.FC<ICarouselProps> = ({ items }) => {
   const handleTouchEnd: TOnDragEnd = (clientX) => {
     if (
       translateXStart.current - clientX > 70 &&
-      currentItemNumberRef.current < length - 2
+      currentItemNumberRef.current < length - 1
     ) {
       setCurrentItemNumber((c) => c + 1);
       currentItemNumberRef.current++;

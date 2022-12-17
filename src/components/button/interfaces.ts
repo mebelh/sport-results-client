@@ -10,6 +10,7 @@ export interface IProps {
   onClick?: React.MouseEventHandler<HTMLElement>;
   iconPosition?: TIconPosition;
   isDisabled?: boolean;
+  className?: string;
 }
 
 export type TButtonWrapperProps = Pick<IProps, 'isDisabled'> & {
