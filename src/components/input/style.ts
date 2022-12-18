@@ -3,7 +3,10 @@ import getColor from 'utils/getColor';
 import Typography from 'components/typography';
 import { IInputProps } from 'components/input/interfaces';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{
+  mt?: number;
+}>`
+  margin-top: ${({ mt }) => (mt ? `${mt}px` : 'none')};
   position: relative;
   padding: 0 0 20px;
 `;

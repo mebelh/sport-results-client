@@ -15,7 +15,7 @@ export const isEmail: TValidateFn = (errorText) => (value) => {
 
 export const isUrl: TValidateFn = (errorText) => (value) => {
   if (
-    !value
+    value
       ?.toLowerCase()
       .match(
         /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/
@@ -59,8 +59,9 @@ export const isLengthMoreThen: TValidateFn<string | TValue[], true> =
   };
 
 export const isPhone: TValidateFn<number> = (errorText) => (value) => {
-  console.log(value);
-  if (!value?.toString().match(/(^89)((\s\(\d{3}\)\s\d{3}\s\d{2}\s\d{2}))/)) {
+  if (
+    value?.toString().match(/^((8|\+7)[- ]?)?(\(?\d{3}\)?[- ]?)?[\d\- ]{7,10}$/)
+  ) {
     return true;
   }
 

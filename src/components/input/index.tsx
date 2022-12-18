@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   Error,
   Wrapper,
@@ -15,8 +15,11 @@ const Input = ({
   error,
   title,
   icon,
+  mt,
+  isAutoFocused,
 }: TInputProps) => {
   const [localValue, setLocalValue] = useState(value || '');
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const inputValue = value ?? localValue;
 
@@ -43,12 +46,19 @@ const Input = ({
       [onChange, inputValue]
     );
 
+  useEffect(() => {
+    if (isAutoFocused && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
   return (
-    <Wrapper>
+    <Wrapper mt={mt}>
       <Title>{title}</Title>
       <InputWrapper error={error}>
         {icon && <div>{icon}</div>}
         <StyledInput
+          ref={inputRef}
           type="text"
           onChange={onChangeHandler}
           value={value ?? localValue}

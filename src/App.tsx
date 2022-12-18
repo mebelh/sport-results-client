@@ -53,6 +53,12 @@ function App() {
         <Button onClick={toggleTheme} type="primary" text="Тема" />
         <Routes>
           <Route element={<AuthPage />} path="/auth/*">
+            <Route
+              path="*"
+              element={
+                <Navigate to={`/auth/${EAuthStep.inputPhone}`} replace />
+              }
+            />
             <Route element={<InputPhoneStep />} path={EAuthStep.inputPhone} />
             <Route element={<VerifyCodeStep />} path={EAuthStep.verifyCode} />
           </Route>

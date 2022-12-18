@@ -1,5 +1,6 @@
 import Button from 'components/button';
 import Checkbox from 'components/checkbox';
+import Typography from 'components/typography';
 import { rootStore } from 'dal/root-store';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
@@ -13,6 +14,8 @@ const SelectTrainingStep: React.FC = () => {
 
   return (
     <div>
+      <Typography.Text3>Выберите тренировку</Typography.Text3>
+
       <WorkoutListWrapper>
         {workoutList.map((workout) => (
           <Button

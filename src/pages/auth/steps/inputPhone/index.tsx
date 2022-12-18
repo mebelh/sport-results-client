@@ -14,6 +14,7 @@ const InputPhoneStep: React.FC = () => {
         {...inputPhoneForm.fields.phone.inputProps}
         type="number"
         placeholder="89** *** ** **"
+        isAutoFocused
       />
       <Button type="primary" text="Отправить код" isDisabled={isLoading} />
     </StepsForm>

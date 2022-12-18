@@ -9,6 +9,8 @@ export interface IInputProps<Type extends TValue | TValue[]> {
   error?: string | boolean;
   type?: 'string' | 'number';
   placeholder?: string;
+  mt?: number;
+  isAutoFocused?: boolean;
 }
 
 type TOnChange<Type extends TValue | TValue[]> = (
