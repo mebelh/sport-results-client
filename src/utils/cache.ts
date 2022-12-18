@@ -1,5 +1,6 @@
 export const IS_SHOW_MENU_KEY = 'IS_SHOW_MENU';
 export const AUTH_KEY = 'AUTH';
+export const THEME_KEY = 'THEME';
 
 class Cache {
   localCache: { [key: string]: any };

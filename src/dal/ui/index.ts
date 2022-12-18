@@ -1,6 +1,6 @@
-import { makeAutoObservable } from 'mobx';
 import { RootStore } from 'dal/root-store';
-import { cache, IS_SHOW_MENU_KEY } from 'utils/cache';
+import { makeAutoObservable } from 'mobx';
+import { cache, IS_SHOW_MENU_KEY, THEME_KEY } from 'utils/cache';
 import { ETheme } from './interfaces';
 
 export const root = document.getElementById('root') as HTMLElement;
@@ -18,7 +18,7 @@ export class DalUIStore {
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
-    this.setTheme(ETheme.light);
+    this.setTheme(cache.get<ETheme>(THEME_KEY) || ETheme.light);
     this.isShowMenu = cache.get<boolean>(IS_SHOW_MENU_KEY) ?? true;
     makeAutoObservable(this);
   }
@@ -33,15 +33,17 @@ export class DalUIStore {
   };
 
   private setTheme = (theme: ETheme) => {
+    this.theme = theme;
     if (this.isDark) {
       root.classList.add('dark');
     } else {
       root.classList.remove('dark');
     }
-    this.theme = theme;
+    cache.set(THEME_KEY, theme);
   };
 
   toggleTheme = () => {
-    this.setTheme(this.isDark ? ETheme.light : ETheme.dark);
+    const theme = this.isDark ? ETheme.light : ETheme.dark;
+    this.setTheme(theme);
   };
 }
