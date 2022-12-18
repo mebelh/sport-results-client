@@ -7,7 +7,6 @@ const DATE_FORMAT_SHORT = 'DD.MM';
 
 export const formatDateTimeToFull = (date: string) => {
   const parsedDate = dayjs(date);
-  console.log(date);
   if (parsedDate.isAfter(dayjs().subtract(1, 'y'))) {
     return parsedDate.format(DATE_TIME_FORMAT_SHORT);
   }
