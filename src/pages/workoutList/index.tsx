@@ -1,3 +1,4 @@
+import Button from 'components/button';
 import React, { useEffect } from 'react';
 import { rootStore } from 'dal/root-store';
 import Workout from 'pages/workoutList/components/workout';
@@ -25,7 +26,9 @@ const WorkoutListPage: React.FC = () => {
 
       {isLoading && <div>Loading...</div>}
 
-      <Link to="/workout/create">Создать</Link>
+      <Link to="/workout/create">
+        <Button type="accent" text="Создать" mt={20} />
+      </Link>
     </div>
   );
 };

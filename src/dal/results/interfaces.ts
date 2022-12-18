@@ -1,9 +1,11 @@
 import { IExercise } from 'dal/exercise/interfaces';
+import { IWorkout } from 'dal/workout/interfaces';
 
 export interface IResult {
   approaches: IApproach[];
   id: string;
   date: string;
+  workout: IWorkout;
 }
 
 export interface IApproach {

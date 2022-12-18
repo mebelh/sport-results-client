@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { IProps } from './interfaces';
 import { Value, Container, Title, ContainerValue, Error } from './style';
 
-const Checkbox: React.FC<IProps> = ({ title, value, onChange, error }) => {
+const Checkbox: React.FC<IProps> = ({ title, value, onChange, error, mt }) => {
   const [state, setState] = useState<boolean>(value || false);
 
   const handleChange = (): void => {
@@ -15,7 +15,7 @@ const Checkbox: React.FC<IProps> = ({ title, value, onChange, error }) => {
   };
 
   return (
-    <Container onClick={handleChange}>
+    <Container onClick={handleChange} mt={mt}>
       <ContainerValue error={error}>
         <Value value={value ?? state} />
       </ContainerValue>

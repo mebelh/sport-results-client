@@ -11,8 +11,10 @@ export interface IProps {
   iconPosition?: TIconPosition;
   isDisabled?: boolean;
   className?: string;
+  mt?: number;
 }
 
 export type TButtonWrapperProps = Pick<IProps, 'isDisabled'> & {
   buttonType: IProps['type'];
+  mt?: number;
 };

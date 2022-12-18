@@ -6,12 +6,11 @@ import { MultiSelect } from 'components/select';
 import NavigationBar from 'components/navigationBar';
 import { rootStore } from 'dal/root-store';
 import Typography from 'components/typography';
-import { snakeBar } from 'app/snakeBar/store';
 import { FormWrapper } from './style';
 
 const CreateExercisePage: React.FC = () => {
   const {
-    exercisesStore: { form, equipmentIds, init },
+    exercisesStore: { form, equipmentIds, init, isLoading },
   } = rootStore;
 
   useEffect(init, []);
@@ -37,7 +36,7 @@ const CreateExercisePage: React.FC = () => {
         <Button
           type="accent"
           text="Ок"
-          isDisabled={form.isError && form.isDirty}
+          isDisabled={(form.isError && form.isDirty) || isLoading}
         />
       </FormWrapper>
     </div>

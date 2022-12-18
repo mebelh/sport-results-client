@@ -3,4 +3,5 @@ export interface IProps {
   onChange?: (value: boolean) => void;
   title?: string;
   error?: string | boolean;
+  mt?: number;
 }

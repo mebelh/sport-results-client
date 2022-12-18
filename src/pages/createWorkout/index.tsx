@@ -6,6 +6,7 @@ import { observer } from 'mobx-react-lite';
 import Button from 'components/button';
 import Input from 'components/input';
 import { MultiSelect } from 'components/select';
+import { CreateWorkoutForm } from './style';
 
 const CreateWorkoutPage: React.FC = () => {
   const {
@@ -20,7 +21,7 @@ const CreateWorkoutPage: React.FC = () => {
         title={<Typography.Text3>Создать тренировку</Typography.Text3>}
       />
 
-      <form onSubmit={form.onSubmit}>
+      <CreateWorkoutForm onSubmit={form.onSubmit}>
         <Input
           {...form.fields.name.inputProps}
           type="string"
@@ -32,8 +33,13 @@ const CreateWorkoutPage: React.FC = () => {
           elements={exercises}
           title="Упражнения"
         />
-        <Button type="accent" text="Создать" isDisabled={form.canSubmit} />
-      </form>
+        <Button
+          type="accent"
+          text="Создать"
+          isDisabled={form.canSubmit}
+          mt={12}
+        />
+      </CreateWorkoutForm>
     </div>
   );
 };

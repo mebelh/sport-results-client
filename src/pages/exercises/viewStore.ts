@@ -9,7 +9,9 @@ import { isTruthy } from 'app/form/validates';
 export class ExercisesStore {
   private readonly rootStore: RootStore;
 
-  form = new Form<TCreateExerciseDto>(
+  public isLoading = false;
+
+  public form = new Form<TCreateExerciseDto>(
     {
       name: {
         validate: [isTruthy()],
@@ -25,6 +27,7 @@ export class ExercisesStore {
     {},
     {
       onSuccess: async (f) => {
+        this.isLoading = true;
         await this.rootStore.dalExercisesStore.createExercise(f);
         snakeBarEmitter.emitSuccess({
           title: 'Успех!',
@@ -32,6 +35,7 @@ export class ExercisesStore {
         });
 
         this.rootStore.routing.goBack();
+        this.isLoading = false;
       },
       onError: (f) => {
         console.log('error', f);
@@ -47,7 +51,7 @@ export class ExercisesStore {
     this.rootStore = rootStore;
   }
 
-  init = () => {
+  public init = () => {
     this.rootStore.dalEquipmentStore.syncEquipmentList();
 
     return () => {
@@ -55,7 +59,7 @@ export class ExercisesStore {
     };
   };
 
-  get equipmentIds(): ISelectElement[] {
+  public get equipmentIds(): ISelectElement[] {
     return this.rootStore.dalEquipmentStore.equipment.map((equipment) => ({
       value: equipment.id,
       label: equipment.name,

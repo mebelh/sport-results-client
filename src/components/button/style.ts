@@ -40,4 +40,5 @@ export const ButtonWrapper = styled.button<TButtonWrapperProps>`
   line-height: 0;
   height: 100%;
   width: 100%;
+  margin-top: ${({ mt }) => (mt ? `${mt}px` : 'none')};
 `;

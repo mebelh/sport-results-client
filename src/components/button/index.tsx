@@ -11,8 +11,10 @@ const Button: React.FC<IProps> = ({
   iconPosition = 'left',
   isDisabled,
   className,
+  mt,
 }) => (
   <ButtonWrapper
+    mt={mt}
     buttonType={type}
     type="submit"
     onClick={isDisabled ? undefined : onClick}

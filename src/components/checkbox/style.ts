@@ -2,12 +2,15 @@ import styled from 'styled-components';
 import getColor from 'utils/getColor';
 import { IProps } from './interfaces';
 
-export const Container = styled.div`
+export const Container = styled.div<{
+  mt?: number;
+}>`
   padding: 4px 4px 20px;
   display: flex;
   align-items: center;
   column-gap: 8px;
   position: relative;
+    margin-top: ${({ mt }) => (mt ? `${mt}px` : 'none')}};
 `;
 
 export const ContainerValue = styled.div`

@@ -4,9 +4,27 @@ import { makeAutoObservable } from 'mobx';
 export class ResultsStore {
   private readonly rootStore: RootStore;
 
+  onlyNoEmptyResultsFilter = true;
+
   constructor(rootStore: RootStore) {
     makeAutoObservable(this);
     this.rootStore = rootStore;
+  }
+
+  toggleOnlyNoEmptyResults = () => {
+    this.onlyNoEmptyResultsFilter = !this.onlyNoEmptyResultsFilter;
+  };
+
+  get onlyNoEmptyResults() {
+    return this.rootStore.dalResultsStore.results.filter(
+      (result) => result.approaches.length
+    );
+  }
+
+  get results() {
+    return this.onlyNoEmptyResultsFilter
+      ? this.onlyNoEmptyResults
+      : this.rootStore.dalResultsStore.results;
   }
 
   init = () => {

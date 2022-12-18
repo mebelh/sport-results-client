@@ -6,7 +6,7 @@ import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 
 const AddApproachStep: React.FC = () => {
-  const { workout, addApproachForm, initApproachStep } =
+  const { workout, addApproachForm, initApproachStep, isApproachCreating } =
     rootStore.trainingStore;
 
   useEffect(initApproachStep, []);
@@ -37,7 +37,7 @@ const AddApproachStep: React.FC = () => {
         type="number"
       />
 
-      <Button type="accent" text="Создать" />
+      <Button type="accent" text="Создать" isDisabled={isApproachCreating} />
     </form>
   );
 };

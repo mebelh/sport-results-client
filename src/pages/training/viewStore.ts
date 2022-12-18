@@ -10,15 +10,15 @@ import { ETrainingSteps } from './interfaces';
 export class TrainingStore {
   private readonly rootStore: RootStore;
 
-  form = new Form<any>({}, {}, {});
+  public startImmediate = false;
 
-  startImmediate = false;
+  public workout: IWorkout | null;
 
-  workout: IWorkout | null;
+  public timeToStart = INITIAL_TIME_TO_START;
 
-  timeToStart = INITIAL_TIME_TO_START;
+  public timerBeforeStart = false;
 
-  timerBeforeStart = false;
+  public isApproachCreating = false;
 
   private step: ETrainingSteps = ETrainingSteps.SelectTraining;
 
@@ -45,6 +45,7 @@ export class TrainingStore {
         if (!this.training) {
           return;
         }
+        this.isApproachCreating = true;
         const approach = await this.rootStore.dalResultsStore.addApproach({
           result: this.training?.id,
           ...fields,
@@ -53,6 +54,7 @@ export class TrainingStore {
         this.training?.approaches.push(approach);
 
         await this.goToTraining();
+        this.isApproachCreating = false;
       },
     }
   );

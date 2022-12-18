@@ -7,14 +7,16 @@ function SettingsPage() {
   return (
     <>
       <Button
-        type="primary"
+        type="danger"
         text="Выйти"
         onClick={rootStore.dalAuthStore.logout}
+        mt={50}
       />
       <Button
         type="primary"
         text="Тема"
         onClick={rootStore.dalUIStore.toggleTheme}
+        mt={20}
       />
     </>
   );

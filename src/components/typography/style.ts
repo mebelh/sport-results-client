@@ -4,39 +4,36 @@ import getColor, { TColorVariant } from 'utils/getColor';
 export interface ITextProps {
   centered?: boolean;
   variant?: TColorVariant;
+  mt?: number;
 }
 
-export const Text1 = styled.p<ITextProps>`
+const Text = styled.p<ITextProps>`
+  color: ${({ variant = 'primary' }) => getColor('text', variant)};
+  text-align: ${({ centered }) => (centered ? 'center' : 'left')};
+  margin-top: ${({ mt }) => (mt ? `${mt}px` : 'none')};
+`;
+
+export const Text1 = styled(Text)`
   font-size: 32px;
   font-weight: 500;
-  color: ${({ variant = 'primary' }) => getColor('text', variant)};
-  text-align: ${({ centered }) => (centered ? 'center' : 'left')};
 `;
 
-export const Text2 = styled.p<ITextProps>`
+export const Text2 = styled(Text)`
   font-size: 24px;
   font-weight: 500;
-  color: ${({ variant = 'primary' }) => getColor('text', variant)};
-  text-align: ${({ centered }) => (centered ? 'center' : 'left')};
 `;
 
-export const Text3 = styled.p<ITextProps>`
+export const Text3 = styled(Text)`
   font-size: 18px;
   font-weight: 400;
-  color: ${({ variant = 'primary' }) => getColor('text', variant)};
-  text-align: ${({ centered }) => (centered ? 'center' : 'left')};
 `;
 
-export const Text4 = styled.p<ITextProps>`
+export const Text4 = styled(Text)`
   font-size: 14px;
   font-weight: 400;
-  color: ${({ variant = 'primary' }) => getColor('text', variant)};
-  text-align: ${({ centered }) => (centered ? 'center' : 'left')};
 `;
 
-export const Text5 = styled.p<ITextProps>`
+export const Text5 = styled(Text)`
   font-size: 12px;
   font-weight: 400;
-  color: ${({ variant = 'primary' }) => getColor('text', variant)};
-  text-align: ${({ centered }) => (centered ? 'center' : 'left')};
 `;

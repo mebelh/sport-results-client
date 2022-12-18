@@ -32,6 +32,7 @@ const SelectTrainingStep: React.FC = () => {
         title="Начать сразу"
         onChange={toggleImmediate}
         value={startImmediate}
+        mt={12}
       />
     </div>
   );
